@@ -82,10 +82,10 @@
     <Content Include="CustomerRegistration\CustManagment.aspx" />
     <Content Include="CustomerRegistration\CustomerLogin.aspx" />
     <Content Include="CustomerRegistration\CustomerRegistration.aspx" />
-    <Content Include="Order\CustOrders.aspx" />
-    <Content Include="Order\CustOrdersDetails.aspx" />
-    <Content Include="Order\CustPayment.aspx" />
+    <Content Include="CustomErrors\GenericError.html" />
     <Content Include="Home.aspx" />
+    <Content Include="CustomErrors\HTTP404.html" />
+    <Content Include="CustomErrors\HTTP500.html" />
     <Content Include="Quiz Pages\IngredientSelection.aspx" />
     <Content Include="Quiz Pages\QuizPage1.aspx" />
     <Content Include="Quiz Pages\QuizPage2.aspx" />
@@ -132,27 +132,6 @@
       <DependentUpon>CustomerSite.Master</DependentUpon>
     </Compile>
     <Compile Include="Classes\Formulation.cs" />
-    <Compile Include="Order\CustOrders.aspx.cs">
-      <DependentUpon>CustOrders.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Order\CustOrders.aspx.designer.cs">
-      <DependentUpon>CustOrders.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Order\CustOrdersDetails.aspx.cs">
-      <DependentUpon>CustOrdersDetails.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Order\CustOrdersDetails.aspx.designer.cs">
-      <DependentUpon>CustOrdersDetails.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Order\CustPayment.aspx.cs">
-      <DependentUpon>CustPayment.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Order\CustPayment.aspx.designer.cs">
-      <DependentUpon>CustPayment.aspx</DependentUpon>
-    </Compile>
     <Compile Include="Home.aspx.cs">
       <DependentUpon>Home.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
