@@ -7,15 +7,17 @@ using System.Diagnostics;
 using System.Linq;
 using System.Web;
 
+
 namespace WebApp
 {
     public class Review
     {
         string _connStr = ConfigurationManager.ConnectionStrings["WebAppDB"].ConnectionString;
 
-        private string _reviewID = Guid.NewGuid().ToString();
+        
+        private int _reviewID = new Random().Next(1,999999999);
         private string _formulationID = "";
-        private string _orderID = "";
+        private int _orderID = 0;
         private int _rating = 0;
         private DateTime __timeStamp = DateTime.UtcNow;
 
@@ -24,7 +26,7 @@ namespace WebApp
 
         }
 
-        public Review(string formulationID, string orderID, int rating)
+        public Review(string formulationID, int orderID, int rating)
         {
             _formulationID = formulationID;
             _orderID = orderID;
@@ -33,8 +35,8 @@ namespace WebApp
 
         public string reviewID
         {
-            get { return _reviewID; }
-            set { _reviewID = value; }
+            get { return _reviewID.ToString(); }
+            set { _reviewID = int.Parse(value); }
         }
 
         public string formulationID
@@ -45,8 +47,8 @@ namespace WebApp
 
         public string orderID
         {
-            get { return _orderID; }
-            set { _orderID = value; }
+            get { return _orderID.ToString(); }
+            set { _orderID = int.Parse(value); }
         }
 
         public int rating
@@ -62,7 +64,7 @@ namespace WebApp
         }
 
         
-        public bool ReviewInsert(int rating)
+        public bool ReviewInsert()
         {
             bool result = false;
 
@@ -85,8 +87,9 @@ namespace WebApp
                 rows += cmd.ExecuteNonQuery();
                 conn.Close();
 
-                if (rows > 1)
+                if (rows > 0)
                 {
+                    Debug.WriteLine("Review Added!");
                     Debug.WriteLine("Completed adding of Review");
                     result = true;
                 }

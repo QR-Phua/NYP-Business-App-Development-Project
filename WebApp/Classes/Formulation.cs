@@ -55,7 +55,7 @@ namespace WebApp
         public void retrieveIngredients()
         {
             
-            string queryStr = "SELECT ingredient1, ingredient2, ingredient3 FROM Formulation WhHERE formulation_ID = @formulationID";
+            string queryStr = "SELECT ingredient1, ingredient2, ingredient3 FROM Formulation WHERE formulation_ID = @formulationID";
 
             Debug.WriteLine("Retrieving Ingredients from orders");
             SqlConnection conn = new SqlConnection(_connStr);

@@ -17,27 +17,29 @@ namespace WebApp.Review_Form
 
             // Add in Problem areas from Order details
 
-            string concern_Type1 = "";
-            string concern_Type2 = "";
- 
-            /* Result[2] and Result[3] shall be derived from the Result_ID from Order Detailw
-            if (result[2] == char.Parse("A"))
+            string concern_Type1 = "R";
+            string concern_Type2 = "Y";
+
+            string[] result = {"A", "B", "R", "Y"};
+
+           
+            if (char.Parse(result[2]) == char.Parse("A"))
             {
                 concern_Type1 = "Acne";
             }
-            else if (result[2] == char.Parse("R"))
+            else if (char.Parse(result[2]) == char.Parse("R"))
             {
                 concern_Type1 = "Redness and Irritation";
             }
-            else if (result[2] == char.Parse("D"))
+            else if (char.Parse(result[2]) == char.Parse("D"))
             {
                 concern_Type1 = "Dullness and Age Spots";
             }
-            else if (result[2] == char.Parse("B"))
+            else if (char.Parse(result[2]) == char.Parse("B"))
             {
                 concern_Type1 = "Blemishes and Pigmentation";
             }
-            else if (result[2] == char.Parse("Y"))
+            else if (char.Parse(result[2]) == char.Parse("Y"))
             {
                 concern_Type1 = "Dryness";
             }
@@ -47,23 +49,23 @@ namespace WebApp.Review_Form
             }
 
             //determine concern 2
-            if (result[3] == char.Parse("A"))
+            if (char.Parse(result[3]) == char.Parse("A"))
             {
                 concern_Type2 = "Acne";
             }
-            else if (result[3] == char.Parse("R"))
+            else if (char.Parse(result[3]) == char.Parse("R"))
             {
                 concern_Type2 = "Redness and Irritation";
             }
-            else if (result[3] == char.Parse("D"))
+            else if (char.Parse(result[3]) == char.Parse("D"))
             {
                 concern_Type2 = "Dullness and Age Spots";
             }
-            else if (result[3] == char.Parse("B"))
+            else if (char.Parse(result[3]) == char.Parse("B"))
             {
                 concern_Type2 = "Blemishes and Pigmentation";
             }
-            else if (result[3] == char.Parse("Y"))
+            else if (char.Parse(result[3]) == char.Parse("Y"))
             {
                 concern_Type2 = "Dryness";
             }
@@ -71,14 +73,15 @@ namespace WebApp.Review_Form
             {
                 concern_Type2 = "Blackheads and Whiteheads";
             }
-            */
+            
 
-            lbl_Problem1.Text = "";
-            lbl_Problem2.Text = "";
+            lbl_Problem1.Text = concern_Type1;
+            lbl_Problem2.Text = concern_Type2;
 
             //Method of retrieving formulation ID from ORDER DETAILS
             //formulationID to be retrieved from 
-            string formulationID = "";
+
+            string formulationID = "A1";
 
 
             Formulation formulation = new Formulation(formulationID);
@@ -95,9 +98,12 @@ namespace WebApp.Review_Form
 
         protected void btn_Submit_Click(object sender, EventArgs e)
         {
-            int orderID;
+            //CHange this to derive from session
+            int orderID = 1;
             int rating;
-            string formulationID;
+
+            //Change this to derive from Session
+            string formulationID = "A1";
 
          
             rating = int.Parse(Slider1.Text);
@@ -110,16 +116,16 @@ namespace WebApp.Review_Form
             Debug.WriteLine(rating);
 
             bool outcome;
-            /*
+            
             Review review = new Review(formulationID, orderID, rating);
             outcome = review.ReviewInsert(); 
             if (outcome)
             {
-                //Redirect back to orders portal
-                Response.Redirect("SOMEWEHERE");
+                //Redirect back to orders portal!!
+                Response.Redirect("~/Home.aspx");
                 
             }
-            */
+            
         }
     }
 }

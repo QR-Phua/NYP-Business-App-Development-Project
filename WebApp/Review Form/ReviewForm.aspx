@@ -11,7 +11,7 @@
         </div>
         <br />
         <div class="row justify-content-center">
-            <div class="col">
+            <div class="col justify-content-center">
                 <h5>Problem Areas targeted</h5>
                 <br />
                 <div class="row">
@@ -25,7 +25,7 @@
                 </div>
             </div>
 
-            <div class="col">
+            <div class="col justify-content-center">
                 <h5>Ingredient Chosen</h5>
                 <br />
                 <div class="row">
