@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -84,20 +85,24 @@ namespace WebApp.Quiz_Pages
 
                 // Generate QuizResult
                 string result = "";
+                string imptResult = "";
 
                 if (Session["skinType"] != null)
                 {
                     result += Session["skinType"].ToString();
+                    imptResult += Session["skinType"].ToString();
                 }
 
                 if (Session["sensitivity"] != null)
                 {
                     result += Session["sensitivity"].ToString();
+                    imptResult += Session["sensitivity"].ToString();
                 }
 
                 if (Session["concerns"] != null)
                 {
                     result += Session["concerns"].ToString();
+                    imptResult += Session["concerns"].ToString();
                 }
 
                 if (Session["makeup"] != null)
@@ -114,13 +119,19 @@ namespace WebApp.Quiz_Pages
                 {
                     HttpCookie cookie = Request.Cookies["QuizResult"];
                     cookie["result"] = result;
+                    cookie["imptResult"] = imptResult;
                     Response.Cookies.Add(cookie);
+                    Debug.WriteLine("Result ID is Below");
+                    Debug.WriteLine(imptResult);
                 }
                 else
                 {
                     HttpCookie cookie = new HttpCookie("QuizResult");
                     cookie["result"] = result;
+                    cookie["imptResult"] = imptResult;
                     Response.Cookies.Add(cookie);
+                    Debug.WriteLine("Result ID is Below");
+                    Debug.WriteLine(imptResult);
                 }
 
                 if (redirect)

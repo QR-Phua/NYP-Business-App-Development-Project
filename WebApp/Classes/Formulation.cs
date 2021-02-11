@@ -17,6 +17,7 @@ namespace WebApp
         private string _ingredient1 = "";
         private string _ingredient2 = "";
         private string _ingredient3 = "";
+        
 
         public Formulation(string formulationID)
         {
@@ -26,6 +27,13 @@ namespace WebApp
         public Formulation()
         {
 
+        }
+
+        public Formulation(string ingredient1, string ingredient2, string ingredient3)
+        {
+            _ingredient1 = ingredient1;
+            _ingredient2 = ingredient2;
+            _ingredient3 = ingredient3;
         }
 
         public string formulationID
@@ -169,6 +177,111 @@ namespace WebApp
 
             }
                
+        }
+
+        public List<string> recommendationIngredientsRetrieve(string formulationID)
+        {
+            string queryStr = "SELECT ingredient1, ingredient2, ingredient3 FROM Formulation WHERE formulation_ID = @formulationID";
+
+            Debug.WriteLine("Retrieving Ingredients");
+            SqlConnection conn = new SqlConnection(_connStr);
+            SqlCommand cmd = new SqlCommand(queryStr, conn);
+            cmd.Parameters.AddWithValue("@formulationID", formulationID);
+
+            conn.Open();
+
+            SqlDataAdapter sda = new SqlDataAdapter(cmd);
+            DataTable dt = new DataTable();
+            dt.Clear();
+            sda.Fill(dt);
+            conn.Close();
+
+            List<string> list = new List<string>();
+            string ingredient1 = "", ingredient2 = "", ingredient3 = "";
+            foreach (DataRow row in dt.Rows)
+            {
+                ingredient1 = row["ingredient1"].ToString();
+                ingredient2 = row["ingredient2"].ToString();
+                ingredient3 = row["ingredient3"].ToString();
+            }
+
+            list.Add(ingredient1);
+            Debug.WriteLine(ingredient1);
+            list.Add(ingredient2);
+            Debug.WriteLine(ingredient2);
+            list.Add(ingredient3);
+            Debug.WriteLine(ingredient3);
+            
+            return list;
+        }
+
+        public string retrieveFormulationID()
+        {
+            string queryStr = "SELECT formulation_ID FROM Formulation WHERE (ingredient1 = @ingredient1 AND ingredient2 = @ingredient2 AND ingredient3 = @ingredient3)";
+            SqlConnection conn = new SqlConnection(_connStr);
+            SqlCommand cmd = new SqlCommand(queryStr, conn);
+            cmd.Parameters.AddWithValue("@ingredient1", this.ingredient1);
+            cmd.Parameters.AddWithValue("@ingredient2", this.ingredient2);
+            cmd.Parameters.AddWithValue("@ingredient3", this.ingredient3);
+            Debug.WriteLine("Getting Formulation ID !");
+
+            string formulationID = "";
+
+            conn.Open();
+            SqlDataReader reader = cmd.ExecuteReader();
+            try
+            {
+                while (reader.Read())
+                {
+                    formulationID = reader["formulation_ID"].ToString();
+                }
+            }
+            finally
+            {
+                reader.Close();
+            }
+
+                        
+            return formulationID;
+        }
+
+
+        public DataTable retrieveRecommendations(string resultID)
+        {
+            string queryStr = "SELECT DISTINCT r.formulation_ID FormulationID, ROUND(AVG(rating),2) Percentage FROM Orders o INNER JOIN Review r ON o.order_ID = r.order_ID "
+                               + "WHERE o.result_ID = @resultID "
+                               + "GROUP BY r.formulation_ID "
+                               + "ORDER BY Percentage desc; ";
+            SqlConnection conn = new SqlConnection(_connStr);
+            SqlCommand cmd = new SqlCommand(queryStr, conn);
+            cmd.Parameters.AddWithValue("@resultID", resultID);
+
+            Debug.WriteLine("Getting formulationIDs of products bought with the same resultID !");
+
+            conn.Open();
+            SqlDataAdapter sda = new SqlDataAdapter(cmd);
+            DataTable dt = new DataTable();
+            dt.Clear();
+            
+            sda.Fill(dt);
+            conn.Close();
+            Debug.WriteLine("DataTable for the various formulationIDs created. Results below vv");
+            
+            if (dt.Rows.Count > 0)
+            {
+                Debug.WriteLine("DT IS NOT EMPTY!");
+                foreach (DataRow row in dt.Rows)
+                {
+                    Debug.WriteLine(string.Format("Formulation ID: {0} has a rating of {1}", row["FormulationID"], row["Percentage"]));
+                }
+                return dt;
+            }
+            else
+            {
+                Debug.WriteLine("DT IS EMPTY!");
+                return dt;
+            }
+            
         }
     }
 }

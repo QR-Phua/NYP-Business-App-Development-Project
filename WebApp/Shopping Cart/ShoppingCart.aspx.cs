@@ -55,7 +55,7 @@ namespace WebApp.Shopping_Cart
                         {
                             amount += (float)(cart.moisturiserQuantity * 29.00);
                         }
-                        else
+                        
                         
 
                         lbl_Subtotal.Text = "Subtotal Amount: $" + amount.ToString();
@@ -75,6 +75,7 @@ namespace WebApp.Shopping_Cart
                         lbl_Subtotal.Visible = false;
                         lbl_Taxes.Visible = false;
                         lbl_Total.Visible = false;
+                        btn_CheckOut.Visible = false;
                     }
                 }
                 

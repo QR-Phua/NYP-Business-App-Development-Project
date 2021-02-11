@@ -63,26 +63,14 @@ namespace WebApp.Shopping_Cart
                     }
                 }
             }
-            else
-            {
-
-            }
             
-           
             HttpCookie cookie = Request.Cookies["cartInfo"];
             if (cookie == null)
             {
                 cookie = new HttpCookie("cartInfo");
             }
             Response.Cookies.Add(cookie);
-            /*
-            lbl_Ingredient1.Text = cookie["Ingredient1"];
-
-            lbl_Ingredient2.Text = cookie["Ingredient2"];
-
-            lbl_Ingredient3.Text = cookie["Ingredient3"];
-            */
-
+            
             HttpCookie quizCookie = Request.Cookies["QuizResult"];
             lbl_Concern1.Text = quizCookie["concernType1"];
             lbl_Concern2.Text = quizCookie["concernType2"];
@@ -98,6 +86,161 @@ namespace WebApp.Shopping_Cart
                 lbl_Ingredient2.Text = row["ingredient2"].ToString();
                 lbl_Ingredient3.Text = row["ingredient3"].ToString();
             }
+
+            Formulation formulation = new Formulation(lbl_Ingredient1.Text, lbl_Ingredient2.Text, lbl_Ingredient3.Text);
+
+            // check if ingredients selected alr exists as a formulation and storing the formulation ID
+            string formulationExistResult = formulation.retrieveFormulationID();
+            
+            // if retrieved id has nothing then it does not exist
+            bool formulationSelectedExist = false;
+            if (formulationExistResult != "")
+            {
+                formulationSelectedExist = true;
+            }
+
+            string imptResult = quizCookie["imptResult"].ToString();
+            Debug.WriteLine(imptResult);
+
+            // retrieve formulations that have been bought and reviewed from DB
+            DataTable ranking = formulation.retrieveRecommendations(imptResult);
+
+
+            if (ranking.Rows.Count > 0)
+            {
+                Debug.WriteLine("ranking datatable exists and has rows");
+                int selectedPerc = 0; // set selected formulation percent to 0 first 
+                
+
+                if (formulationSelectedExist)
+                {
+                    // getting selected ingredients rating percentage since it exists in DB
+                    DataRow[] selectedFormRows = ranking.Select(string.Format("FormulationID = '{0}'", formulationExistResult));
+                    if (selectedFormRows.Length > 0)
+                    {
+                        for (int i = 0; i < selectedFormRows.Length; i++)
+                        {
+                            Debug.WriteLine(selectedFormRows[i]["Percentage"]);
+
+                            //Set selectedPerc with rating of formulation
+                            selectedPerc = (int)selectedFormRows[i]["Percentage"];
+                        }
+                    }
+                }
+
+                // getting the first row perc since is the highest rating percentage
+                DataRow firstRow = ranking.Rows[0];
+                string firstFormID = firstRow["FormulationID"].ToString();
+                int firstPerc = (int)firstRow["Percentage"];
+
+                //show recommendations if ranking more than or equal to 50% satisfaction
+                if (firstPerc >= 50)
+                {
+                    //retrieve and store ingredients into a list for the highest rated formulation
+                    List<string> list = formulation.recommendationIngredientsRetrieve(firstRow["FormulationID"].ToString());
+
+                    //store to session for future retrieval when button is click
+                    Session["RecommendedIngredients"] = list;
+
+                    if (selectedPerc > 0) // if selected > 0 to compare accurately
+                    {
+
+                        // if highest rating more than selected rating
+                        if (firstPerc > selectedPerc)
+                        {
+                            // displays text
+                            lbl_Recommended.Text = String.Format("We have found other combination of Ingredients that may work better to " +
+                                "target your selected Skin Concerns. You may want to try this highest rated combination for your results. " +
+                                "Its satisfaction rate is {0} among customers with the same Skin Quiz Result as you and its ingredients are {1}, {2} and {3}." +
+                                " If you wish to try it out, click the button below.", selectedPerc, list[0], list[1], list[2]);
+
+                            //enables button to change the ingredients
+                            btn_TakeRecommended.Visible = true;
+
+                        }
+
+                        // if ratings are equal
+                        else if (firstPerc == selectedPerc)
+                        {
+
+                            lbl_Recommended.Text = String.Format("Your chosen combination of ingredients is one of the highest rated combination based on your Skin Quiz Result! " +
+                                "Its satisfaction rate among customers is {0}. You're all good!", firstPerc);
+
+                            //hides button since recommendation is the same
+                            btn_TakeRecommended.Visible = false;
+
+                        }
+
+                        else if (firstPerc < selectedPerc)
+                        {
+                            lbl_Recommended.Text = String.Format("Your chosen combination of ingredients is the highest rated combination based on your Skin Quiz Result! " +
+                                "Its satisfaction rate among customers is {0}. You're all good!", selectedPerc);
+
+                            //hides button since recommendation is the same
+                            btn_TakeRecommended.Visible = false;
+                        }
+                    }
+
+                    else // since no rating found, recommend highest
+                    {
+                        // displays text
+                        lbl_Recommended.Text = String.Format("We have found other combination of Ingredients that may work better to " +
+                            "target your selected Skin Concerns. You may want to try this highest rated combination for your results. " +
+                            "Its satisfaction rate is {0} among customers with the same Skin Quiz Result as you and its ingredients are {1}, {2} and {3}." +
+                            " If you wish to try it out, click the button below.", selectedPerc, list[0], list[1], list[2]);
+
+                        //enables button to change the ingredients
+                        btn_TakeRecommended.Visible = true;
+                    }
+
+                }
+                else
+                {
+                    lbl_Recommended.Text = String.Format("We can't give much recommendation at this point in time. This can be due to many factors " +
+                        "such as a lack of reviews on the ingredient combinations for this particular Skin Quiz Result. We recommend choosing " +
+                        "the combination of ingredients that you like in the prvious step and proceed to try it out!");
+
+                    //hides button since no recommendation
+                    btn_TakeRecommended.Visible = false;
+                }
+
+            }
+            else
+            {
+                Debug.WriteLine("ranking datatable DOES NOT HAVE ROWS");
+                lbl_Recommended.Text = String.Format("We can't give much recommendation at this point in time. This can be due to many factors " +
+                        "such as a lack of reviews on the ingredient combinations for this particular Skin Quiz Result. We recommend choosing " +
+                        "the combination of ingredients that you like in the prvious step and proceed to try it out!");
+
+                //hides button since no recommendation
+                btn_TakeRecommended.Visible = false;
+            }
+        
+
+        }
+
+        protected void btn_TakeRecommended_Click(object sender, EventArgs e)
+        {
+            List<string> list = (List<string>)Session["RecommendedIngredients"];
+
+            string ingredient1, ingredient2, ingredient3;
+
+            ingredient1 = list[0];
+            ingredient2 = list[1];
+            ingredient3 = list[2];
+
+            ShoppingCart cart = (ShoppingCart)Session["CartObject"];
+
+            TempIngredients temp = new TempIngredients(cart.cart_ID, ingredient1, ingredient2, ingredient3);
+
+            bool result = temp.ingredientInsert();
+
+            if (result)
+            {
+                Response.Redirect("~/Shopping Cart/ProductFormulation.aspx");
+            }
+
+            
         }
 
         protected void btn_Reselect_Click(object sender, EventArgs e)
@@ -389,7 +532,6 @@ namespace WebApp.Shopping_Cart
             }
         }
 
-            
         
     }
 }

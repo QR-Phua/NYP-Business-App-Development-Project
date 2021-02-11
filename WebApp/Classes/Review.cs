@@ -104,10 +104,7 @@ namespace WebApp
 
         }
 
-        public void retrieveRecommendations(string result, string ingredient1, string ingredient2, string ingredient3)
-        {
-            
-        }
-        
+
+                
     }
 }

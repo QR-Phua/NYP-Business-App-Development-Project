@@ -78,6 +78,24 @@ namespace WebApp.Shopping_Cart
         protected global::System.Web.UI.WebControls.Button btn_Reselect;
 
         /// <summary>
+        /// lbl_Recommended control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lbl_Recommended;
+
+        /// <summary>
+        /// btn_TakeRecommended control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btn_TakeRecommended;
+
+        /// <summary>
         /// ScriptManager1 control.
         /// </summary>
         /// <remarks>

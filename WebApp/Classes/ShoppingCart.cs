@@ -1429,6 +1429,12 @@ namespace WebApp
             TableData.Columns.Add("Description");
             TableData.Columns.Add("StockLevel");
             sda.Fill(TableData);
+
+            foreach (DataRow row in TableData.Rows)
+            {
+                Debug.WriteLine(row["Ingredient_Name"].ToString());
+            }
+
             return TableData;
         }
 

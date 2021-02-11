@@ -46,10 +46,25 @@
         </div>
         <br />
         <br />
+
         <div class="row justify-content-center">
             <asp:Button ID="btn_Retake" class="btn btn-danger" runat="server" Text="Retake the Skin Quiz" OnClick="btn_Retake_Click" />
-            <asp:Button ID="btn_Reselect" class="btn btn-primary " runat="server" Text="Change the selected ingredients" OnClick="btn_Reselect_Click" />
+            <asp:Button ID="btn_Reselect" class="btn btn-warning " runat="server" Text="Return to ingredient selection" OnClick="btn_Reselect_Click" />
         </div>
+
+        <br />
+        <br />
+        <hr />
+        <div class="row justify-content-center">
+            <asp:Label ID="lbl_Recommended" runat="server" Text="" ></asp:Label>
+        </div>
+        <br />
+        <div class="row justify-content-center">
+            <asp:Button ID="btn_TakeRecommended" class="btn btn-info" Width="80%" runat="server" Text="Take the recommended ingredients" OnClick="btn_TakeRecommended_Click"  />
+        </div>
+
+
+        
         
         <br />
         <br />
