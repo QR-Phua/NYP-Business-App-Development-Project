@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/CustomerSite.Master" AutoEventWireup="true" CodeBehind="ProductFormulation.aspx.cs" Inherits="WebApp.Shopping_Cart.ProductFormulation" %>
+﻿<%@ Page Title="Products | Chadior Beauty" Language="C#" MasterPageFile="~/CustomerSite.Master" AutoEventWireup="true" CodeBehind="ProductFormulation.aspx.cs" Inherits="WebApp.Shopping_Cart.ProductFormulation" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">

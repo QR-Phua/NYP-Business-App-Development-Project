@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/CustomerSite.Master" AutoEventWireup="true" CodeBehind="IngredientSelection.aspx.cs" Inherits="WebApp.IngredientSelection" %>
+﻿<%@ Page Title="Quiz | Chadior Beauty" Language="C#" MasterPageFile="~/CustomerSite.Master" AutoEventWireup="true" CodeBehind="IngredientSelection.aspx.cs" Inherits="WebApp.IngredientSelection" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 
 </asp:Content>
