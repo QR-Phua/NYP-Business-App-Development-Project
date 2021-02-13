@@ -33,6 +33,15 @@ namespace WebApp.Shopping_Cart
         protected global::System.Web.UI.WebControls.Label lbl_Concern2;
 
         /// <summary>
+        /// btn_Retake control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btn_Retake;
+
+        /// <summary>
         /// lbl_Ingredient1 control.
         /// </summary>
         /// <remarks>
@@ -60,15 +69,6 @@ namespace WebApp.Shopping_Cart
         protected global::System.Web.UI.WebControls.Label lbl_Ingredient3;
 
         /// <summary>
-        /// btn_Retake control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btn_Retake;
-
-        /// <summary>
         /// btn_Reselect control.
         /// </summary>
         /// <remarks>
@@ -94,6 +94,33 @@ namespace WebApp.Shopping_Cart
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btn_TakeRecommended;
+
+        /// <summary>
+        /// img_Cleanser control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Image img_Cleanser;
+
+        /// <summary>
+        /// img_Toner control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Image img_Toner;
+
+        /// <summary>
+        /// img_Moisturiser control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Image img_Moisturiser;
 
         /// <summary>
         /// ScriptManager1 control.

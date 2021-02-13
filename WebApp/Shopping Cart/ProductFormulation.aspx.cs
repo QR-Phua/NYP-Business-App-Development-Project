@@ -151,8 +151,8 @@ namespace WebApp.Shopping_Cart
                             // displays text
                             lbl_Recommended.Text = String.Format("We have found other combination of Ingredients that may work better to " +
                                 "target your selected Skin Concerns. You may want to try this highest rated combination for your results. " +
-                                "Its satisfaction rate is {0} among customers with the same Skin Quiz Result as you and its ingredients are {1}, {2} and {3}." +
-                                " If you wish to try it out, click the button below.", selectedPerc, list[0], list[1], list[2]);
+                                "The satisfaction rate is {0}% among customers with the same Skin Quiz Result as you and its ingredients are {1}, {2} and {3}." +
+                                " If you wish to try it out, click the button below.", firstPerc, list[0], list[1], list[2]);
 
                             //enables button to change the ingredients
                             btn_TakeRecommended.Visible = true;
@@ -164,7 +164,7 @@ namespace WebApp.Shopping_Cart
                         {
 
                             lbl_Recommended.Text = String.Format("Your chosen combination of ingredients is one of the highest rated combination based on your Skin Quiz Result! " +
-                                "Its satisfaction rate among customers is {0}. You're all good!", firstPerc);
+                                "The satisfaction rate among customers is {0}%. You're all good!", firstPerc);
 
                             //hides button since recommendation is the same
                             btn_TakeRecommended.Visible = false;
@@ -174,7 +174,7 @@ namespace WebApp.Shopping_Cart
                         else if (firstPerc < selectedPerc)
                         {
                             lbl_Recommended.Text = String.Format("Your chosen combination of ingredients is the highest rated combination based on your Skin Quiz Result! " +
-                                "Its satisfaction rate among customers is {0}. You're all good!", selectedPerc);
+                                "The satisfaction rate among customers is {0}%. You're all good!", selectedPerc);
 
                             //hides button since recommendation is the same
                             btn_TakeRecommended.Visible = false;
@@ -186,8 +186,8 @@ namespace WebApp.Shopping_Cart
                         // displays text
                         lbl_Recommended.Text = String.Format("We have found other combination of Ingredients that may work better to " +
                             "target your selected Skin Concerns. You may want to try this highest rated combination for your results. " +
-                            "Its satisfaction rate is {0} among customers with the same Skin Quiz Result as you and its ingredients are {1}, {2} and {3}." +
-                            " If you wish to try it out, click the button below.", selectedPerc, list[0], list[1], list[2]);
+                            "The satisfaction rate is {0}% among customers with the same Skin Quiz Result as you and its ingredients are {1}, {2} and {3}." +
+                            " If you wish to try it out, click the button below.", firstPerc, list[0], list[1], list[2]);
 
                         //enables button to change the ingredients
                         btn_TakeRecommended.Visible = true;
@@ -198,7 +198,7 @@ namespace WebApp.Shopping_Cart
                 {
                     lbl_Recommended.Text = String.Format("We can't give much recommendation at this point in time. This can be due to many factors " +
                         "such as a lack of reviews on the ingredient combinations for this particular Skin Quiz Result. We recommend choosing " +
-                        "the combination of ingredients that you like in the prvious step and proceed to try it out!");
+                        "the combination of ingredients that you like in the previous step and to go and try it out! Remember that everyone's Skin is different!");
 
                     //hides button since no recommendation
                     btn_TakeRecommended.Visible = false;
@@ -251,8 +251,12 @@ namespace WebApp.Shopping_Cart
         protected void btn_AddCleanser_Click(object sender, EventArgs e)
         {
             if (ddl_Cleanser.SelectedIndex > 0)
-            {
-                Session.Remove("CleanserQuantity");
+            {   
+                if (Session["CleanserQuantity"] != null)
+                {
+                    Session.Remove("CleanserQuantity");
+                }
+                
                 Session["CleanserQuantity"] = ddl_Cleanser.SelectedValue;
                 lbl_Cleanser.Text = "Quantity Selected: " + Session["CleanserQuantity"].ToString();
                 lbl_Cleanser.Attributes.CssStyle.Add("color", "black");
@@ -268,6 +272,11 @@ namespace WebApp.Shopping_Cart
         {
             if (ddl_Toner.SelectedIndex > 0)
             {
+                if (Session["TonerQuantity"] != null)
+                {
+                    Session.Remove("TonerQuantity");
+                }
+
                 Session.Remove("TonerQuantity");
                 Session["TonerQuantity"] = ddl_Toner.SelectedValue;
                 lbl_Toner.Text = "Quantity Selected: " + Session["TonerQuantity"].ToString();
@@ -284,7 +293,11 @@ namespace WebApp.Shopping_Cart
         {
             if (ddl_Moisturiser.SelectedIndex > 0)
             {
-                Session.Remove("MoisturiserQuantity");
+                if (Session["MoisturiserQuantity"] != null)
+                {
+                    Session.Remove("MoisturiserQuantity");
+                }
+                
                 Session["MoisturiserQuantity"] = ddl_Moisturiser.SelectedValue;
                 lbl_Moisturiser.Text = "Quantity Selected: " + Session["MoisturiserQuantity"].ToString();
                 lbl_Moisturiser.Attributes.CssStyle.Add("color", "black");
@@ -341,129 +354,132 @@ namespace WebApp.Shopping_Cart
             if (Session["OrderSubscription"] == null)
             {
                 error = error + "Please select whether you would like to have a subscription!";
-                
-            }
-
-            if ((int)Session["OrderSubscription"] < 0)
-            {
-                error = error + "Please select whether you would like to have a subscription!";
-            }
-
-            if (Session["CleanserQuantity"] == null && Session["TonerQuantity"] == null && Session["MoisturiserQuantity"] == null)
-            {
-                error = error + "Please select a product and the quantity you desire!";
-                
-            }
-
-            if ((Session["CleanserQuantity"] != null || Session["TonerQuantity"] != null || Session["MoisturiserQuantity"] != null) && (Session["OrderSubscription"] != null))
-            {
-                redirect = true;
-            }
-
-            if (!redirect)
-            {
                 lbl_Redirect.Text = error;
-                lbl_Redirect.Attributes.CssStyle.Add("color", "red");
-
             }
             else
             {
-                ShoppingCart cart = (ShoppingCart)Session["CartObject"];
-                HttpCookie quizResult = Request.Cookies["QuizResult"];
-                string waterCon = quizResult["waterCon"];
-                string makeup = quizResult["makeup"];
-
-                if (waterCon == "Bad")
+                if ((int)Session["OrderSubscription"] < 0)
                 {
-                    cart.tonerBase = "Moisture Base";
-                    cart.moisturiserBase = "Cream Base";
+                    error = error + "Please select whether you would like to have a subscription!";
+                }
+
+                if (Session["CleanserQuantity"] == null && Session["TonerQuantity"] == null && Session["MoisturiserQuantity"] == null)
+                {
+                    error = error + "Please select a product and the quantity you desire!";
+
+                }
+
+                if ((Session["CleanserQuantity"] != null || Session["TonerQuantity"] != null || Session["MoisturiserQuantity"] != null) && (Session["OrderSubscription"] != null))
+                {
+                    redirect = true;
+                }
+
+                if (!redirect)
+                {
+                    lbl_Redirect.Text = error;
+                    lbl_Redirect.Attributes.CssStyle.Add("color", "red");
+
                 }
                 else
                 {
-                    cart.tonerBase = "Hydro Base";
-                    cart.moisturiserBase = "Gel Base";
-                }
+                    ShoppingCart cart = (ShoppingCart)Session["CartObject"];
+                    HttpCookie quizResult = Request.Cookies["QuizResult"];
+                    string waterCon = quizResult["waterCon"];
+                    string makeup = quizResult["makeup"];
 
-                if (makeup == "Yes")
-                {
-                    cart.cleanserBase = "Makeup Base";
-                }
-                else
-                {
-                    cart.cleanserBase = "Gentle Base";
-                }
-                
-                if (Session["CleanserQuantity"] != null)
-                {
-                    cart.cleanserQuantity = int.Parse(Session["CleanserQuantity"].ToString());
-                }
-                else
-                {
-                    cart.cleanserQuantity = 0;
-                }
-
-                if (Session["TonerQuantity"] != null)
-                {
-                    cart.tonerQuantity = int.Parse(Session["TonerQuantity"].ToString());
-                }
-                else
-                {
-                    cart.tonerQuantity = 0;
-                }
-
-                if (Session["MoisturiserQuantity"] != null)
-                {
-                    cart.moisturiserQuantity = int.Parse(Session["MoisturiserQuantity"].ToString());
-                }
-                else
-                {
-                    cart.moisturiserQuantity = 0;
-                }
-
-                
-                cart.ingredient1 = lbl_Ingredient1.Text;
-                cart.ingredient2 = lbl_Ingredient2.Text;
-                cart.ingredient3 = lbl_Ingredient3.Text;
-
-                cart.frequency = int.Parse(Session["OrderSubscription"].ToString());
-
-                HttpCookie cookie = Request.Cookies["cartInfo"];
-                
-                cookie["CleanserQuantity"] = cart.cleanserQuantity.ToString();
-                cookie["TonerQuantity"] = cart.tonerQuantity.ToString();
-                cookie["MoisturiserQuantity"] = cart.moisturiserQuantity.ToString(); 
-                cookie["CleanserBase"] = cart.cleanserBase;
-                cookie["TonerBase"] = cart.tonerBase;
-                cookie["MoisturiserBase"] = cart.moisturiserBase;
-                cookie["Frequency"] = cart.frequency.ToString();
-                Response.Cookies.Add(cookie);
-                Session["CartObject"] = cart;
-
-                if (Session["Customer"] != null)
-                {
-                    /*
-                    string custID = Session["Customer"]
-
-                    some method of retreival 
-
-                    bool result = cart.SignedCartInsert(custID);
-                    if (result)
+                    if (waterCon == "Bad")
                     {
-                        Response.Redirect("ShoppingCart.aspx");
+                        cart.tonerBase = "Moisture Base";
+                        cart.moisturiserBase = "Cream Base";
                     }
-                    */
-                }
-                else
-                {
-                    bool result = cart.CartInsert();
-                    if (result)
+                    else
                     {
-                        Response.Redirect("ShoppingCart.aspx");
+                        cart.tonerBase = "Hydro Base";
+                        cart.moisturiserBase = "Gel Base";
                     }
-                }
-                            
 
+                    if (makeup == "Yes")
+                    {
+                        cart.cleanserBase = "Makeup Base";
+                    }
+                    else
+                    {
+                        cart.cleanserBase = "Gentle Base";
+                    }
+
+                    if (Session["CleanserQuantity"] != null)
+                    {
+                        cart.cleanserQuantity = int.Parse(Session["CleanserQuantity"].ToString());
+                    }
+                    else
+                    {
+                        cart.cleanserQuantity = 0;
+                    }
+
+                    if (Session["TonerQuantity"] != null)
+                    {
+                        cart.tonerQuantity = int.Parse(Session["TonerQuantity"].ToString());
+                    }
+                    else
+                    {
+                        cart.tonerQuantity = 0;
+                    }
+
+                    if (Session["MoisturiserQuantity"] != null)
+                    {
+                        cart.moisturiserQuantity = int.Parse(Session["MoisturiserQuantity"].ToString());
+                    }
+                    else
+                    {
+                        cart.moisturiserQuantity = 0;
+                    }
+
+
+                    cart.ingredient1 = lbl_Ingredient1.Text;
+                    cart.ingredient2 = lbl_Ingredient2.Text;
+                    cart.ingredient3 = lbl_Ingredient3.Text;
+
+                    cart.frequency = int.Parse(Session["OrderSubscription"].ToString());
+
+                    HttpCookie cookie = Request.Cookies["cartInfo"];
+
+                    cookie["CleanserQuantity"] = cart.cleanserQuantity.ToString();
+                    cookie["TonerQuantity"] = cart.tonerQuantity.ToString();
+                    cookie["MoisturiserQuantity"] = cart.moisturiserQuantity.ToString();
+                    cookie["CleanserBase"] = cart.cleanserBase;
+                    cookie["TonerBase"] = cart.tonerBase;
+                    cookie["MoisturiserBase"] = cart.moisturiserBase;
+                    cookie["Frequency"] = cart.frequency.ToString();
+                    Response.Cookies.Add(cookie);
+                    Session["CartObject"] = cart;
+
+                    if (Session["Customer"] != null)
+                    {
+                        /*
+                        string custID = Session["Customer"]
+
+                        some method of retrieval 
+
+                        bool result = cart.SignedCartInsert(custID);
+                        if (result)
+                        {
+                            Response.Redirect("ShoppingCart.aspx");
+                        }
+                        */
+                    }
+                    else
+                    {
+                        bool result = cart.CartInsert();
+                        if (result)
+                        {
+                            Response.Redirect("ShoppingCart.aspx");
+                        }
+                    }
+
+
+                }
             }
+            
         }
 
         protected void btn_Retake_Click(object sender, EventArgs e)

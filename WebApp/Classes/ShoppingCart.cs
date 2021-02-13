@@ -274,15 +274,9 @@ namespace WebApp
                         bool cleanser = false;
                         bool toner = false;
                         bool moisturiser = false;
-
-                        int cleanserPos = 0;
-                        int tonerPos = 0;
-                        int moisturiserPos = 0;
-
                         if (this.cleanserQuantity > 0)
                         {
                             cleanser = true;
-                            cleanserPos += 1;
                         }
                         else
                         {
@@ -292,14 +286,6 @@ namespace WebApp
                         if (this.tonerQuantity > 0)
                         {
                             toner = true;
-                            if (cleanserPos == 0)
-                            {
-                                tonerPos += 1;
-                            }
-                            else
-                            {
-                                tonerPos = cleanserPos + 1;
-                            }
 
                         }
                         else
@@ -310,29 +296,53 @@ namespace WebApp
                         if (this.moisturiserQuantity > 0)
                         {
                             moisturiser = true;
-                            if (cleanserPos == 0 && tonerPos == 0)
-                            {
-                                moisturiserPos = 1;
-                            }
-                            else
-                            {
-                                if (tonerPos == 0)
-                                {
-                                    moisturiserPos = cleanserPos + 1;
-                                }
-                                else
-                                {
-                                    moisturiserPos = tonerPos + cleanserPos;
-                                }
-                            }
-
-
                         }
                         else
                         {
                             moisturiserStatus = true;
                         }
 
+                        int cleanserPos = 0;
+                        int tonerPos = 0;
+                        int moisturiserPos = 0;
+                        if (cleanser == true && toner != true && moisturiser != true)
+                        {
+                            cleanserPos = 1;
+                        }
+                        else if (cleanser == true && toner == true && moisturiser != true)
+                        {
+                            cleanserPos = 1;
+                            tonerPos = 2;
+                        }
+
+                        else if (cleanser == true && toner != true && moisturiser == true)
+                        {
+                            cleanserPos = 1;
+                            moisturiserPos = 2;
+                        }
+
+                        else if (cleanser == true && toner == true && moisturiser == true)
+                        {
+                            cleanserPos = 1;
+                            tonerPos = 2;
+                            moisturiserPos = 3;
+                        }
+
+                        else if (cleanser != true && toner == true && moisturiser != true)
+                        {
+                            tonerPos = 1;
+                        }
+
+                        else if (cleanser != true && toner == true && moisturiser == true)
+                        {
+                            tonerPos = 1;
+                            moisturiserPos = 2;
+                        }
+
+                        else if (cleanser != true && toner != true && moisturiser == true)
+                        {
+                            moisturiserPos = 1;
+                        }
                         Debug.WriteLine("Completed assigning of variables");
                         Debug.Write("Checking if Cleanser was selected");
 
@@ -528,15 +538,9 @@ namespace WebApp
                     bool cleanser = false;
                     bool toner = false;
                     bool moisturiser = false;
-
-                    int cleanserPos = 0;
-                    int tonerPos = 0;
-                    int moisturiserPos = 0;
-
                     if (this.cleanserQuantity > 0)
                     {
                         cleanser = true;
-                        cleanserPos += 1;
                     }
                     else
                     {
@@ -546,14 +550,6 @@ namespace WebApp
                     if (this.tonerQuantity > 0)
                     {
                         toner = true;
-                        if (cleanserPos == 0)
-                        {
-                            tonerPos += 1;
-                        }
-                        else
-                        {
-                            tonerPos = cleanserPos + 1;
-                        }
 
                     }
                     else
@@ -564,19 +560,52 @@ namespace WebApp
                     if (this.moisturiserQuantity > 0)
                     {
                         moisturiser = true;
-                        if (cleanserPos == 0 && tonerPos == 0)
-                        {
-                            moisturiserPos = 1;
-                        }
-                        else
-                        {
-                            moisturiserPos = tonerPos + cleanserPos + 1;
-                        }
-
                     }
                     else
                     {
                         moisturiserStatus = true;
+                    }
+
+                    int cleanserPos = 0;
+                    int tonerPos = 0;
+                    int moisturiserPos = 0;
+                    if (cleanser == true && toner != true && moisturiser != true)
+                    {
+                        cleanserPos = 1;
+                    }
+                    else if (cleanser == true && toner == true && moisturiser != true)
+                    {
+                        cleanserPos = 1;
+                        tonerPos = 2;
+                    }
+
+                    else if (cleanser == true && toner != true && moisturiser == true)
+                    {
+                        cleanserPos = 1;
+                        moisturiserPos = 2;
+                    }
+
+                    else if (cleanser == true && toner == true && moisturiser == true)
+                    {
+                        cleanserPos = 1;
+                        tonerPos = 2;
+                        moisturiserPos = 3;
+                    }
+
+                    else if (cleanser != true && toner == true && moisturiser != true)
+                    {
+                        tonerPos = 1;
+                    }
+
+                    else if (cleanser != true && toner == true && moisturiser == true)
+                    {
+                        tonerPos = 1;
+                        moisturiserPos = 2;
+                    }
+
+                    else if (cleanser != true && toner != true && moisturiser == true)
+                    {
+                        moisturiserPos = 1;
                     }
 
                     Debug.WriteLine("Finish assigning variables");
@@ -859,14 +888,10 @@ namespace WebApp
                         bool toner = false;
                         bool moisturiser = false;
 
-                        int cleanserPos = 0;
-                        int tonerPos = 0;
-                        int moisturiserPos = 0;
-
+                                                
                         if (this.cleanserQuantity > 0)
                         {
                             cleanser = true;
-                            cleanserPos += 1;
                         }
                         else
                         {
@@ -876,15 +901,7 @@ namespace WebApp
                         if (this.tonerQuantity > 0)
                         {
                             toner = true;
-                            if (cleanserPos == 0)
-                            {
-                                tonerPos += 1;
-                            }
-                            else
-                            {
-                                tonerPos = cleanserPos + 1;
-                            }
-
+                            
                         }
                         else
                         {
@@ -894,28 +911,55 @@ namespace WebApp
                         if (this.moisturiserQuantity > 0)
                         {
                             moisturiser = true;
-                            if (cleanserPos == 0 && tonerPos == 0)
-                            {
-                                moisturiserPos = 1;
-                            }
-                            else
-                            {
-                                if (tonerPos == 0)
-                                {
-                                    moisturiserPos = cleanserPos + 1;
-                                }
-                                else
-                                {
-                                    moisturiserPos = tonerPos + cleanserPos;
-                                }
-                            }
-                                
-
                         }
                         else
                         {
                             moisturiserStatus = true;
                         }
+
+                        int cleanserPos = 0;
+                        int tonerPos = 0;
+                        int moisturiserPos = 0;
+                        if (cleanser == true && toner != true && moisturiser != true)
+                        {
+                            cleanserPos = 1;
+                        }
+                        else if (cleanser == true && toner == true && moisturiser != true)
+                        {
+                            cleanserPos = 1;
+                            tonerPos = 2;
+                        }
+
+                        else if (cleanser == true && toner != true && moisturiser == true)
+                        {
+                            cleanserPos = 1;
+                            moisturiserPos = 2;
+                        }
+
+                        else if (cleanser == true && toner == true && moisturiser == true)
+                        {
+                            cleanserPos = 1;
+                            tonerPos = 2;
+                            moisturiserPos = 3;
+                        }
+
+                        else if (cleanser != true && toner == true && moisturiser != true)
+                        {
+                            tonerPos = 1;
+                        }
+
+                        else if (cleanser != true && toner == true && moisturiser == true)
+                        {
+                            tonerPos = 1;
+                            moisturiserPos = 2;
+                        }
+
+                        else if (cleanser != true && toner != true && moisturiser == true)
+                        {
+                            moisturiserPos = 1;
+                        }
+
+                        
 
                         Debug.WriteLine("Completed assigning of variables");
                         Debug.Write("Checking if Cleanser was selected");
@@ -1028,7 +1072,7 @@ namespace WebApp
                                 }
 
                             }
-                            catch (Exception ex)
+                            catch (SqlException ex)
                             {
                                 Debug.WriteLine("Something went wrong adding moisturiser to table! Error below");
                                 Debug.WriteLine(ex);
@@ -1111,14 +1155,9 @@ namespace WebApp
                     bool toner = false;
                     bool moisturiser = false;
 
-                    int cleanserPos = 0;
-                    int tonerPos = 0;
-                    int moisturiserPos = 0;
-
                     if (this.cleanserQuantity > 0)
                     {
                         cleanser = true;
-                        cleanserPos += 1;
                     }
                     else
                     {
@@ -1128,15 +1167,7 @@ namespace WebApp
                     if (this.tonerQuantity > 0)
                     {
                         toner = true;
-                        if (cleanserPos == 0)
-                        {
-                            tonerPos += 1;
-                        }
-                        else
-                        {
-                            tonerPos = cleanserPos + 1;
-                        }
-                        
+
                     }
                     else
                     {
@@ -1146,19 +1177,52 @@ namespace WebApp
                     if (this.moisturiserQuantity > 0)
                     {
                         moisturiser = true;
-                        if (cleanserPos == 0 && tonerPos == 0)
-                        {
-                            moisturiserPos = 1;
-                        }
-                        else
-                        {
-                            moisturiserPos = tonerPos + cleanserPos +1;
-                        }
-                        
                     }
                     else
                     {
                         moisturiserStatus = true;
+                    }
+
+                    int cleanserPos = 0;
+                    int tonerPos = 0;
+                    int moisturiserPos = 0;
+                    if (cleanser == true && toner != true && moisturiser != true)
+                    {
+                        cleanserPos = 1;
+                    }
+                    else if (cleanser == true && toner == true && moisturiser != true)
+                    {
+                        cleanserPos = 1;
+                        tonerPos = 2;
+                    }
+
+                    else if (cleanser == true && toner != true && moisturiser == true)
+                    {
+                        cleanserPos = 1;
+                        moisturiserPos = 2;
+                    }
+
+                    else if (cleanser == true && toner == true && moisturiser == true)
+                    {
+                        cleanserPos = 1;
+                        tonerPos = 2;
+                        moisturiserPos = 3;
+                    }
+
+                    else if (cleanser != true && toner == true && moisturiser != true)
+                    {
+                        tonerPos = 1;
+                    }
+
+                    else if (cleanser != true && toner == true && moisturiser == true)
+                    {
+                        tonerPos = 1;
+                        moisturiserPos = 2;
+                    }
+
+                    else if (cleanser != true && toner != true && moisturiser == true)
+                    {
+                        moisturiserPos = 1;
                     }
 
                     Debug.WriteLine("Finish assigning variables");
@@ -1322,7 +1386,47 @@ namespace WebApp
             if (rowsAffected > 0)
             {
                 Debug.WriteLine("DELETE FROM CLASS METHOD SUCCESSFUL! ");
-                return true;
+
+                int deletedRows = 0;
+
+                // check if cart is empty now 
+                string query = "SELECT * FROM UnsignedCartItem WHERE cart_ID = @cart_ID";
+                SqlCommand command = new SqlCommand(query, conn);
+                Debug.WriteLine("Query database to see if there is anything");
+
+                command.Parameters.AddWithValue("@cart_ID", this.cart_ID);
+                conn.Open();
+
+                SqlDataReader dr = command.ExecuteReader();
+                if (dr.HasRows)
+                {
+                    dr.Close();
+                    conn.Close();
+                    return true;
+                }
+                else
+                {
+                    dr.Close();
+                    conn.Close();
+                    string query1 = "DELETE FROM UnsignedCart WHERE cart_ID = @cart_ID";
+                    SqlCommand command2 = new SqlCommand(query1, conn);
+
+                    Debug.WriteLine("BEGIN DELETING CART FROM DB");
+                    command2.Parameters.AddWithValue("@cart_ID", this.cart_ID);
+                    conn.Open();
+                    deletedRows = command2.ExecuteNonQuery();
+                    conn.Close();
+
+                    if (deletedRows > 0)
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+                                
             }
             else
             {

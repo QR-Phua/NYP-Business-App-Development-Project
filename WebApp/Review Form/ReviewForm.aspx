@@ -11,13 +11,14 @@
         </div>
         <br />
         <div class="row justify-content-center">
-            <div class="col justify-content-center">
+
+            <div class="col-6">
                 <h5>Problem Areas targeted</h5>
                 <br />
-                <div class="row">
+                <div class="row justify-content-center">
                     <asp:Label ID="lbl_Problem1" runat="server" Text=""></asp:Label>
                 </div>
-                <div class="row">
+                <div class="row justify-content-center">
                     <asp:Label ID="lbl_Problem2" runat="server" Text=""></asp:Label>
                 </div>
                 <div class="row">
@@ -25,19 +26,20 @@
                 </div>
             </div>
 
-            <div class="col justify-content-center">
+            <div class="col-6 justify-content-center">
                 <h5>Ingredient Chosen</h5>
                 <br />
-                <div class="row">
+                <div class="row justify-content-center">
                     <asp:Label ID="lbl_Ingredient1" runat="server" Text=""></asp:Label>
                 </div>
-                <div class="row">
+                <div class="row justify-content-center">
                     <asp:Label ID="lbl_Ingredient2" runat="server" Text=""></asp:Label>
                 </div>
-                <div class="row">
+                <div class="row justify-content-center">
                     <asp:Label ID="lbl_Ingredient3" runat="server" Text=""></asp:Label>
                 </div>
             </div>
+
         </div>
         <br />
         <br />

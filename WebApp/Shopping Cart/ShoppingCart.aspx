@@ -52,8 +52,8 @@
         <br />
         <br />
         <div class="row justify-content-center">
-            <asp:Button ID="btn_BackProductFormulation" class="btn btn-warning" runat="server" Text="Back to Product Formulation" OnClick="btn_BackProductFormulation_Click" />
-            <asp:Button ID="btn_CheckOut" class="btn btn-info" runat="server" Text="Check out" OnClick="btn_CheckOut_Click" />
+            <asp:Button ID="btn_BackProductFormulation" class="btn btn-warning" runat="server" Text="Back to Product Formulation" style="margin-right: 15px" OnClick="btn_BackProductFormulation_Click" />
+            <asp:Button ID="btn_CheckOut" class="btn btn-info" runat="server" Text="Check out" style="margin-left: 15px" OnClick="btn_CheckOut_Click" />
         </div>
             
 

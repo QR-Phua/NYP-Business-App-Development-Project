@@ -127,21 +127,18 @@
         <br />
         <br />
 
-
-
         <div class="container">
-        <div class="row justify-content-center">
+            <div class="row justify-content-center">
             
-            <div class="col-2">
-                <asp:Button Class="btn btn-danger" ID="btn_Back" runat="server" Text="Back" OnClick="btn_Back_Click"  />
-            </div>
+                <div class="col-6">
+                    <div class="row justify-content-center"><asp:Button Class="btn btn-danger" ID="btn_Back" runat="server" Text="Back" OnClick="btn_Back_Click"  /></div>
+                </div>
 
-            <div class="col-2">
-                <button type="reset" class="btn btn-primary" ID="btn_Submit">Next</button>
-                
-            </div>
+                <div class="col-6">
+
+                </div>
     
-        </div>
+            </div>
         </div>
     </div>
 </asp:Content>

@@ -66,12 +66,13 @@
                 <div class="col-8">
                     <asp:RadioButtonList ID="rbl_SkinType" runat="server" CssClass="auto-style1" >
 
-                        <asp:ListItem Value="D">Dry</asp:ListItem>
-                        <asp:ListItem Value="B">Balanced</asp:ListItem>
-                        <asp:ListItem Value="O">Oily</asp:ListItem>
+                        <asp:ListItem Value="D" style="margin-bottom:30px">Dry</asp:ListItem>
+                        <asp:ListItem Value="B" style="margin-bottom:30px">Balanced</asp:ListItem>
+                        <asp:ListItem Value="O" style="margin-bottom:30px">Oily</asp:ListItem>
                         <asp:ListItem Value="C">Combination of Dry and Oily</asp:ListItem>
                     </asp:RadioButtonList>
                 </div>
+                <br />
                 <div class="col-4">
                     <asp:RequiredFieldValidator ID="rfv_SkinType" runat="server" ErrorMessage="Please select an option" ControlToValidate="rbl_SkinType" ForeColor="Red"></asp:RequiredFieldValidator>
                 </div>
@@ -117,10 +118,11 @@
             <div class="container">
             <div class="col-8">
                 <asp:RadioButtonList ID="rbl_Sensitivity" runat="server">
-                    <asp:ListItem Value="N">No</asp:ListItem>
+                    <asp:ListItem Value="N" style="margin-bottom:30px">No</asp:ListItem>
                     <asp:ListItem Value="Y">Yes</asp:ListItem>
                 </asp:RadioButtonList>
             </div>
+            <br />
             <div class="col-4">
                 <asp:RequiredFieldValidator ID="rfv_Sensitivity" runat="server" ErrorMessage="Please select an option" ControlToValidate="rbl_Sensitivity" ForeColor="Red"></asp:RequiredFieldValidator>
             </div>

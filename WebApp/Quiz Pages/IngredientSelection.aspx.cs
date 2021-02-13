@@ -214,36 +214,7 @@ namespace WebApp
         [WebMethod(EnableSession = true)]
         public static void getData(string[] ingredients)
         {
-            /*
-            if (ingredient != null)
-            {
-                if (ingredients.Count == 0)
-                {
-                    ingredients.Add(ingredient);
-                }
-                else
-                {
-                    bool delete = false;
-                    int index = 0;
-                    for (int i=0; i<ingredients.Count(); i++)
-                    {
-                        if (ingredients[i].ToString() == ingredient)
-                        {
-                            delete = true;
-                            index = i;
-                        }
-                    }
-
-                    if (delete)
-                    {
-                        ingredients.RemoveAt(index);
-                    }
-                    else
-                    {
-                        ingredients.Add(ingredient);
-                    }
-                }
-            } */
+            
             if (ingredients != null)
             {
                 Debug.WriteLine(ingredients);
@@ -272,86 +243,7 @@ namespace WebApp
 
         protected void btn_Submit_Click(object sender, EventArgs e)
         {
-            // Response.Redirect("~/Shopping Cart/ProductFormulation.aspx");
-            /*
-            bool result = true;
             
-            if (HttpContext.Current.Session["ChosenIngredient1"] == null || HttpContext.Current.Session["ChosenIngredient1"].ToString() == "")
-            {
-                result = false;
-                Debug.WriteLine("ChosenIngredient1 is empty!");
-            }
-            if (HttpContext.Current.Session["ChosenIngredient2"] == null || HttpContext.Current.Session["ChosenIngredient2"].ToString() == "")
-            {
-                result = false;
-                Debug.WriteLine("ChosenIngredient2 is empty!");
-            }
-            if (HttpContext.Current.Session["ChosenIngredient3"] == null || HttpContext.Current.Session["ChosenIngredient3"].ToString() == "")
-            {
-                result = false;
-                Debug.WriteLine("ChosenIngredient3 is empty!");
-            }
-
-            if (result)
-            {
-                
-                ShoppingCart cart = (ShoppingCart)Session["CartObject"];
-
-
-                cart.ingredient1 = HttpContext.Current.Session["ChosenIngredient1"].ToString();
-                cart.ingredient2 = HttpContext.Current.Session["ChosenIngredient2"].ToString();
-                cart.ingredient3 = HttpContext.Current.Session["ChosenIngredient3"].ToString();
-
-                HttpCookie cookie = new HttpCookie("cartInfo");
-                cookie["UnsignedCartID"] = cart.cart_ID;
-                cookie["Ingredient1"] = HttpContext.Current.Session["ChosenIngredient1"].ToString();
-                cookie["Ingredient2"] = HttpContext.Current.Session["ChosenIngredient2"].ToString();
-                cookie["Ingredient3"] = HttpContext.Current.Session["ChosenIngredient3"].ToString();
-
-                Response.Cookies.Add(cookie);
-                Session["CartObject"] = cart;
-                if (Session["CartObject"] != null)
-                {
-                    Label12.Text = "exists";
-                }
-                else
-                {
-                    Label12.Text = "Nothing!";
-                }
-
-                if (HttpContext.Current.Session["ChosenIngredient1"] != null)
-                {
-                    Label9.Text = HttpContext.Current.Session["ChosenIngredient1"].ToString();
-                }
-                else
-                {
-                    Label9.Text = "Chosen1 is empty!";
-                }
-
-                if (HttpContext.Current.Session["ChosenIngredient2"] != null)
-                {
-                    Label10.Text = HttpContext.Current.Session["ChosenIngredient2"].ToString();
-                }
-                else
-                {
-                    Label10.Text = "Chosen2 is empty!";
-                }
-
-                if (HttpContext.Current.Session["ChosenIngredient3"] != null)
-                {
-                    Label11.Text = HttpContext.Current.Session["ChosenIngredient3"].ToString();
-                }
-                else
-                {
-                    Label11.Text = "Chosen1 is empty!";
-                }
-
-                if (result)
-                {
-                    Response.Redirect("~/Shopping Cart/ProductFormulation.aspx");
-                }
-            }
-            */
         }
     }
 }

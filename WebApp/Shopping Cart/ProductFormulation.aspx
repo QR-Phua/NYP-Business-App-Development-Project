@@ -32,40 +32,55 @@
         <div class="row justify-content-center">
             <div class="col-6">
                 <h4>Problem Areas</h4>
+                <br />
                 <div class="row justify-content-center"><asp:Label ID="lbl_Concern1" runat="server" Text=""></asp:Label></div>
                 <div class="row justify-content-center"><asp:Label ID="lbl_Concern2" runat="server" Text=""></asp:Label></div>
-
+                <br />
+                <br />
+                <div class="row justify-content-center"><asp:Button ID="btn_Retake" class="btn btn-danger" runat="server" Text="Retake the Skin Quiz" OnClick="btn_Retake_Click" /></div>
             </div>
 
             <div class="col-6">
                 <h4>Ingredient Chosen</h4>
+                <br />
                 <div class="row justify-content-center"><asp:Label ID="lbl_Ingredient1" runat="server" Text=""></asp:Label></div>
                 <div class="row justify-content-center"><asp:Label ID="lbl_Ingredient2" runat="server" Text=""></asp:Label></div>
                 <div class="row justify-content-center"><asp:Label ID="lbl_Ingredient3" runat="server" Text=""></asp:Label></div>
+                <br />
+                <div class="row justify-content-center"><asp:Button ID="btn_Reselect" class="btn btn-warning " runat="server" Text="Return to ingredient selection" OnClick="btn_Reselect_Click" /></div>
             </div>
         </div>
-        <br />
-        <br />
-
-        <div class="row justify-content-center">
-            <asp:Button ID="btn_Retake" class="btn btn-danger" runat="server" Text="Retake the Skin Quiz" OnClick="btn_Retake_Click" />
-            <asp:Button ID="btn_Reselect" class="btn btn-warning " runat="server" Text="Return to ingredient selection" OnClick="btn_Reselect_Click" />
-        </div>
 
         <br />
         <br />
+        <h4>Ingredient Combination Recommendation</h4>
         <hr />
+        
         <div class="row justify-content-center">
-            <asp:Label ID="lbl_Recommended" runat="server" Text="" ></asp:Label>
+            <asp:Label ID="lbl_Recommended" runat="server" Width="80%" style="text-align: justify"></asp:Label>
         </div>
         <br />
         <div class="row justify-content-center">
             <asp:Button ID="btn_TakeRecommended" class="btn btn-info" Width="80%" runat="server" Text="Take the recommended ingredients" OnClick="btn_TakeRecommended_Click"  />
         </div>
+        <hr />
 
+        <br />
+        <br />
+        <div class="row justify-content-center">
+            <div class="col-4">
+                <div class="row justify-content-center"><asp:Image ID="img_Cleanser" runat="server" ImageUrl="~/Images/Cleanser.jpg" Width="200px" /></div>
+            </div>
 
-        
-        
+            <div class="col-4">
+                <div class="row justify-content-center"><asp:Image ID="img_Toner" runat="server" Width="200px" ImageUrl="~/Images/Toner.jpg" /></div>
+            </div>
+
+            <div class="col-4">
+                <div class="row justify-content-center"><asp:Image ID="img_Moisturiser" runat="server" ImageUrl="~/Images/Moisturiser.jpg" Width="200px" /></div>
+            </div>
+        </div>
+
         <br />
         <br />
         <asp:ScriptManager ID="ScriptManager1" runat="server" />
@@ -73,8 +88,10 @@
             <ContentTemplate>
                 <div class="row justify-content-center">
                     <div class="col-4">
-                        <h5>Cleanser</h5>
-                        <h5>$19</h5>
+                        
+                        
+                        <div class="row justify-content-center"><h5>Cleanser</h5></div>
+                        <div class="row justify-content-center"><h5>$19</h5></div>
                         <div class="row justify-content-center">
                             <h6>Select your quantity</h6>
                         </div>
@@ -114,8 +131,9 @@
                     </div>
 
                     <div class="col-4">
-                        <h5>Toner-Serum</h5>
-                        <h5>$29</h5>
+                        
+                        <div class="row justify-content-center"><h5>Toner-Serum</h5></div>
+                        <div class="row justify-content-center"><h5>$29</h5></div>
                         <div class="row justify-content-center">
                                 <h6>Select your quantity</h6>
                         </div>
@@ -157,8 +175,9 @@
                     </div>
 
                     <div class="col-4">
-                        <h5>Moisturiser</h5>
-                        <h5>$29</h5>
+                        
+                        <div class="row justify-content-center"><h5>Moisturiser</h5></div>
+                        <div class="row justify-content-center"><h5>$29</h5></div>
                             <div class="row justify-content-center">
                                 <h6>Select your quantity</h6>
                             </div>
@@ -185,7 +204,7 @@
                                         <br />
                                         <br />
                                     </div>
-
+                                    
                                     <div class="row justify-content-center">
                                         <asp:Label ID="lbl_Moisturiser" runat="server" Text=""></asp:Label>
                                     </div>
@@ -246,4 +265,6 @@
             </ContentTemplate>
         </asp:UpdatePanel>
     </div>
+    <br />
+    <br />
 </asp:Content>

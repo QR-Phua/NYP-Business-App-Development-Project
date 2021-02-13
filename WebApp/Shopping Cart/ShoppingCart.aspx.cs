@@ -60,7 +60,7 @@ namespace WebApp.Shopping_Cart
 
                         lbl_Subtotal.Text = "Subtotal Amount: $" + amount.ToString();
 
-                        float taxes = (float)(amount * 1.07);
+                        float taxes = (float)(amount * 0.07);
                         lbl_Taxes.Text = "Estimated Taxes: $" + taxes.ToString();
 
                         lbl_Total.Text = "Total Amount: $" + (amount + taxes).ToString();
@@ -149,6 +149,7 @@ namespace WebApp.Shopping_Cart
                     cart.cleanserQuantity = 0;
                     cookie["CleanserQuantity"] = cart.cleanserQuantity.ToString();
                     Response.Cookies.Add(cookie);
+                    Session.Remove("CleanserQuantity");
                     Session["CartObject"] = cart;
                     Response.Redirect("ShoppingCart.aspx");
                 }
@@ -157,6 +158,7 @@ namespace WebApp.Shopping_Cart
                     cart.moisturiserQuantity = 0;
                     cookie["MoisturiserQuantity"] = cart.moisturiserQuantity.ToString();
                     Response.Cookies.Add(cookie);
+                    Session.Remove("MoisturiserQuantity");
                     Session["CartObject"] = cart;
                     Response.Redirect("ShoppingCart.aspx");
                 }
@@ -165,6 +167,7 @@ namespace WebApp.Shopping_Cart
                     cart.tonerQuantity = 0;
                     cookie["TonerQuantity"] = cart.tonerQuantity.ToString();
                     Response.Cookies.Add(cookie);
+                    Session.Remove("TonerQuantity");
                     Session["CartObject"] = cart;
                     Response.Redirect("ShoppingCart.aspx");
                 }
@@ -218,12 +221,12 @@ namespace WebApp.Shopping_Cart
                     cart.cleanserQuantity = quantity;
                     
                 }
-                else if (type == "Toner")
+                else if (type == "Toner-Serum")
                 {
                     cookie["TonerQuantity"] = quantity.ToString();
                     cart.tonerQuantity = quantity;
                 }
-                else
+                else if (type == "Moisturiser")
                 {
                     cookie["MoisturiserQuantity"] = quantity.ToString();
                     cart.moisturiserQuantity = quantity;

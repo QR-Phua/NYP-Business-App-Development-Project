@@ -86,6 +86,10 @@
     <Content Include="Home.aspx" />
     <Content Include="CustomErrors\HTTP404.html" />
     <Content Include="CustomErrors\HTTP500.html" />
+    <Content Include="Images\Cleanser.jpg" />
+    <Content Include="Images\Hero Img 1.jpg" />
+    <Content Include="Images\Moisturiser.jpg" />
+    <Content Include="Images\Toner.jpg" />
     <Content Include="Quiz Pages\IngredientSelection.aspx" />
     <Content Include="Quiz Pages\QuizPage1.aspx" />
     <Content Include="Quiz Pages\QuizPage2.aspx" />

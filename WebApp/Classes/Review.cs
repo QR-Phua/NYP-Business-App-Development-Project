@@ -70,12 +70,12 @@ namespace WebApp
 
             string queryStr = "INSERT INTO Review(review_ID, order_ID, rating, formulation_ID, date)"
                 + "VALUES (@review_ID, @order_ID, @rating, @formulation_ID, @date )";
-
+            SqlConnection conn = new SqlConnection(_connStr);
             try
             {
                 Debug.WriteLine("Adding Review");
                 int rows = 0;
-                SqlConnection conn = new SqlConnection(_connStr);
+                
                 SqlCommand cmd = new SqlCommand(queryStr, conn);
                 cmd.Parameters.AddWithValue("@review_ID", this.reviewID);
                 cmd.Parameters.AddWithValue("@order_ID", this.orderID);
@@ -100,7 +100,35 @@ namespace WebApp
                 Debug.WriteLine(ex);
             }
 
-            return result;
+            if (result)
+            {
+                Debug.Write("UPDATING review attribute in order rn !");
+                int rowsAffected = 0;
+                string query = "UPDATE Orders SET reviewed = 'True' WHERE order_ID = @orderID";
+
+                SqlCommand cmd = new SqlCommand(query, conn);
+                cmd.Parameters.AddWithValue("@orderID", this.orderID);
+                
+                conn.Open();
+                rowsAffected = cmd.ExecuteNonQuery();
+                conn.Close();
+
+                if (rowsAffected > 0)
+                {
+                    Debug.WriteLine("Update completed!");
+                    result = true;
+                    return result;
+                }
+                else
+                {
+                    Debug.WriteLine("Update failed!");
+                    return false;
+                }
+            }
+            else
+            {
+                return false;
+            }
 
         }
 
