@@ -2,9 +2,16 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server" >
     </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-
-
     <br />
+    <br />
+    <br />
+
+    <style>
+        table {
+            background-color: white;
+        }
+    </style>
+
     <div class="container">
         <div class="row justify-content-center" >
             <h3>Shopping Cart</h3>

@@ -34,12 +34,13 @@
         });
 
     </script>
-    
-    <div class="container">
-        
-    </div>
     <br />
     <br />
+    <br />
+    <br />
+    <br />
+    <br />
+
 
     <div class="container">
         <div class="row justify-content-center">
@@ -81,7 +82,6 @@
                 <span id="errorMsg"></span>
             </div>
             
-        </div>
         <br />
          <br />
         

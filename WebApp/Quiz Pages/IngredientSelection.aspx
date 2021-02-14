@@ -3,12 +3,13 @@
 
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-
+        
     <script src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.23/js/dataTables.bootstrap4.min.js"></script>
 
     <script type="text/javascript">
         $(document).ready(function () {
+
             $('#example').DataTable({
                 scrollY: 400,
                 scrollX: true,
@@ -20,6 +21,7 @@
             
 
             $(".chcktbl1").each(function (index) {
+                
                 this.checked = (".chcktbl1:input:checkbox" < max_limit);
             }).change(function () {
                 if ($(".chcktbl1:input:checkbox:checked").length > max_limit) {
@@ -33,6 +35,7 @@
                     return $(this).attr("data-id");
                 }).toArray();
 
+
                 if (values.length !== 3) {
                     alert("You need to select 3 Ingredients!");
                     window.location.reload();
@@ -45,9 +48,12 @@
                         url: "IngredientSelection.aspx/getData",
                         data: JSON.stringify({ ingredients: values }),
                         datatype: "JSON",
+                        
                         success: function (result) {
-
                             window.location = "<%= ResolveUrl("~/Shopping Cart/ProductFormulation.aspx") %>";
+                        },
+                        error: function (errorThrown) {
+                            alert(errorThrown);
                         }
                     });
                 }
@@ -57,12 +63,38 @@
             
         });  
 
-       
-
-    
     </script> 
+    
+    <style>
+        table.dataTable thead th, table.dataTable thead td {
+            border-bottom: 0px;
+        }
+
+        .dataTables_wrapper .dataTables_filter input {
+            background-color: white;
+        }
+
+        .dataTables_wrapper.no-footer .dataTables_scrollBody{
+            border-bottom: 0px;
+        }
+
+        .table-hover tbody tr:hover{
+            color: #772de6;
+            background-color: #f1d0f1;
+        }
+
+        table{
+            background-color: white;
+            border: 0px;
+        }
+
+    </style>
 
     <br />
+    <br />
+    <br />
+    <br />
+    
 
     <div class="container">
         <div class="row justify-content-center">
@@ -81,8 +113,8 @@
             <asp:UpdatePanel ID="UpdatePanel1" runat="server">
                 <ContentTemplate>
 
-                    <table id="example" class="table table-hover table-striped table-bordered table-responsive">
-                        <thead>
+                    <table id="example" class="table table-hover table-striped table-bordered table-responsive" >
+                        <thead style="background-color:white; ">
                             <tr>
                                 
                                 <th>Name</th>
@@ -135,7 +167,7 @@
                 </div>
 
                 <div class="col-6">
-
+                    <div class="row justify-content-center"><button type="reset" class="btn btn-primary" ID="btn_Submit">Next</button></div>
                 </div>
     
             </div>

@@ -5,6 +5,9 @@
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <br />
+    <br />
+    <br />
+
     <div class="container">
         <div class="progress">
             <div class="progress-bar bg-info" role="progressbar" style="width: 60%" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
