@@ -68,8 +68,6 @@ namespace WebApp
             set { _faq_Answer = value; }
         }
 
-        // class methods
-
         public FAQ getfaq(string faq_ID)
         {
             FAQ FAQdetail = null;
@@ -138,17 +136,13 @@ namespace WebApp
             return faqList;
         }
 
-
-        // INSERT
         public int FAQInsert()
         {
 
-            // string msg = null;
             int result = 0;
 
             string queryStr = "INSERT INTO faq(faq_ID, faq_Title, faq_Question, faq_Answer)"
                 + " values (@faq_ID, @faq_Title, @faq_Question, @faq_Answer)";
-            //+ "values (@Product_ID, @Product_Name, @Product_Desc, @Unit_Price, @Product_Image,@Stock_Level)";
 
             SqlConnection conn = new SqlConnection(_connStr);
             SqlCommand cmd = new SqlCommand(queryStr, conn);
@@ -158,14 +152,12 @@ namespace WebApp
             cmd.Parameters.AddWithValue("@faq_Answer", this._faq_Answer);
 
             conn.Open();
-            result += cmd.ExecuteNonQuery(); // Returns no. of rows affected. Must be > 0
+            result += cmd.ExecuteNonQuery(); 
             conn.Close();
 
             return result;
-        }//end Insert
+        }
 
-
-        // DELETE
         public int FAQDelete(string ID)
         {
             string queryStr = "DELETE FROM Faq WHERE faq_ID=@ID";
@@ -175,18 +167,16 @@ namespace WebApp
             conn.Open();
             int nofRow = 0;
             nofRow = cmd.ExecuteNonQuery();
-            //Response.Write("<script>alert('Delete successful');</script>");
             conn.Close();
             return nofRow;
 
-        }//end Delete
+        }
 
 
 
         public int FAQUpdate(string fID,  string fTitle,string fQuestion, string fAnswer)
         {
             string queryStr = "UPDATE FAQ SET" +
-                //" Product_ID = @productID, " +
                 " faq_Title = @faq_Title, " +
                 " faq_Question = @faq_Question, " +
                 " faq_Answer = @faq_Answer " + 
@@ -206,7 +196,7 @@ namespace WebApp
             conn.Close();
 
             return nofRow;
-        }//end Update
+        }
 
 
 

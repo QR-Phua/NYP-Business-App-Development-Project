@@ -70,15 +70,15 @@
         <br />
         <div class="row justify-content-center">
             <div class="col-4">
-                <div class="row justify-content-center"><asp:Image ID="img_Cleanser" runat="server" ImageUrl="~/Images/Cleanser.jpg" Width="200px" BorderColor="White" BorderWidth="4px" /></div>
+                <div class="row justify-content-center"><asp:Image ID="img_Cleanser" runat="server" ImageUrl="~/Images/Cleanser.jpg" Width="200px"  /></div>
             </div>
 
             <div class="col-4">
-                <div class="row justify-content-center"><asp:Image ID="img_Toner" runat="server" Width="200px" ImageUrl="~/Images/Toner.jpg" BorderColor="White" BorderWidth="4px"  /></div>
+                <div class="row justify-content-center"><asp:Image ID="img_Toner" runat="server" Width="200px" ImageUrl="~/Images/Toner.jpg"   /></div>
             </div>
 
             <div class="col-4">
-                <div class="row justify-content-center"><asp:Image ID="img_Moisturiser" runat="server" ImageUrl="~/Images/Moisturiser.jpg" Width="200px" BorderColor="White" BorderWidth="4px"  /></div>
+                <div class="row justify-content-center"><asp:Image ID="img_Moisturiser" runat="server" ImageUrl="~/Images/Moisturiser.jpg" Width="200px"   /></div>
             </div>
         </div>
 

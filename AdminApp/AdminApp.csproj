@@ -78,12 +78,6 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\..\..\delete later\mine\assignment\FAQ.cs">
-      <Link>Classes\FAQ.cs</Link>
-    </Compile>
-    <Compile Include="..\..\BADPJ_191928r\BAD ass\Business-Application-Development-Project-master\Customer.cs">
-      <Link>Classes\Customer.cs</Link>
-    </Compile>
     <Compile Include="AdminSite.Master.cs">
       <DependentUpon>AdminSite.Master</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -91,6 +85,7 @@
     <Compile Include="AdminSite.Master.designer.cs">
       <DependentUpon>AdminSite.Master</DependentUpon>
     </Compile>
+	<Compile Include="Classes\FAQ.cs"/>
     <Compile Include="Classes\Ingredient.cs" />
     <Compile Include="FAQ\FAQInsert.aspx.cs">
       <DependentUpon>FAQInsert.aspx</DependentUpon>

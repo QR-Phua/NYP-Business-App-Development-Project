@@ -59,7 +59,7 @@ namespace AdminApp
             }
             else
             {
-                Response.Write("<script>alert('FAQ removal NOT successfully');</script>");
+                Response.Write("<script>alert('FAQ removal NOT successful');</script>");
             }
 
             Response.Redirect("FAQView.aspx");
