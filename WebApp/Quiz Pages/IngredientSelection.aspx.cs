@@ -88,12 +88,6 @@ namespace WebApp
             HttpCookie cookie = Request.Cookies["QuizResult"];
             string result = cookie["result"];
 
-            string allerIngredients = "";
-            if (cookie["allerIngredients"] != null || cookie["allerIngredients"] != "")
-            {
-                allerIngredients = cookie["allerIngredients"];
-            }
-
             string skinType, sensitivity, concern_Type1, concern_Type2, makeup, waterCon, type;
             int level = 1;
 
@@ -208,6 +202,33 @@ namespace WebApp
             
 
             TableData = cart.IngredientListRetrieve(skinType,sensitivity,concern_Type1,concern_Type2,level,type);
+
+            bool allerIngredients = false;
+            if (Session["allerIngredients"].ToString() != "No")
+            {
+                allerIngredients = true;
+            }
+            
+            if (allerIngredients)
+            {
+                List<string> list = (List<string>)Session["allerIngredients"];
+
+                TableData.AcceptChanges();
+                foreach (DataRow row in TableData.Rows)
+                {
+                    foreach (string item in list)
+                    {
+                        if (row["Ingredient_Name"].ToString() == item)
+                        {
+                            row.Delete();
+                        }
+
+                    }
+                    
+                }
+                TableData.AcceptChanges();
+            }
+            
 
         }
 

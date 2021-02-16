@@ -63,7 +63,31 @@ namespace WebApp.Shopping_Cart
                     }
                 }
             }
-            
+
+            HttpCookie quizResult = Request.Cookies["QuizResult"];
+            string waterCon = quizResult["waterCon"];
+            string makeup = quizResult["makeup"];
+
+            if (waterCon == "Bad")
+            {
+                lbl_TonerBase.Text = "Moisture Base";
+                lbl_MoisturiserBase.Text = "Cream Base";
+            }
+            else
+            {
+                lbl_TonerBase.Text = "Hydro Base";
+                lbl_MoisturiserBase.Text = "Gel Base";
+            }
+
+            if (makeup == "Yes")
+            {
+                lbl_CleanserBase.Text = "Makeup Base";
+            }
+            else
+            {
+                lbl_CleanserBase.Text = "Gentle Base";
+            }
+
             HttpCookie cookie = Request.Cookies["cartInfo"];
             if (cookie == null)
             {
@@ -209,8 +233,8 @@ namespace WebApp.Shopping_Cart
             {
                 Debug.WriteLine("ranking datatable DOES NOT HAVE ROWS");
                 lbl_Recommended.Text = String.Format("We can't give much recommendation at this point in time. This can be due to many factors " +
-                        "such as a lack of reviews on the ingredient combinations for this particular Skin Quiz Result. We recommend choosing " +
-                        "the combination of ingredients that you like in the prvious step and proceed to try it out!");
+                        "such as a lack of reviews on the ingredient combinations bought for this particular Skin Quiz Result and etc. We recommend choosing " +
+                        "the combination of ingredients that you like in the previous step and proceed to try it out!");
 
                 //hides button since no recommendation
                 btn_TakeRecommended.Visible = false;

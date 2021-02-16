@@ -141,6 +141,15 @@ namespace WebApp.Shopping_Cart
         protected global::System.Web.UI.UpdatePanel UpdatePanel5;
 
         /// <summary>
+        /// lbl_CleanserBase control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lbl_CleanserBase;
+
+        /// <summary>
         /// UpdatePanel1 control.
         /// </summary>
         /// <remarks>
@@ -177,6 +186,15 @@ namespace WebApp.Shopping_Cart
         protected global::System.Web.UI.WebControls.Label lbl_Cleanser;
 
         /// <summary>
+        /// lbl_TonerBase control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lbl_TonerBase;
+
+        /// <summary>
         /// UpdatePanel2 control.
         /// </summary>
         /// <remarks>
@@ -211,6 +229,15 @@ namespace WebApp.Shopping_Cart
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lbl_Toner;
+
+        /// <summary>
+        /// lbl_MoisturiserBase control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lbl_MoisturiserBase;
 
         /// <summary>
         /// UpdatePanel3 control.

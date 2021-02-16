@@ -75,7 +75,7 @@
 				<img alt="First slide" class="d-block w-100 slideImg" src="Images/Hero Img 1.jpg"">
 				<div class="carousel-caption d-none d-md-block">
 					<h5 class="animated slideInDown" style="animation-delay: 1s">Discover our different skincare products</h5>
-					<p class="animated fadeInUp" style="animation-delay: 2s">Create your personalised skincare products today</p>
+					<p class="animated fadeInUp" style="animation-delay: 2s">Find out what makes it different from other companies </p>
 					<p class="animated zoomIn" style="animation-delay: 3s"><a href="#">Learn More</a></p>
 				</div>
 			</div>

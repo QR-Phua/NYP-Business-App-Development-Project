@@ -135,7 +135,7 @@
                                 <td><%=TableData.Rows[data]["Description"]%>  
                                 </td>
 
-                                <td><% if (int.Parse(TableData.Rows[data][3].ToString()) < 500)
+                                <td><% if (int.Parse(TableData.Rows[data][2].ToString()) < 500)
                                         {%>
                                     Please expect delays to your product if selected
                                 <%} %>                                    
@@ -173,5 +173,6 @@
             </div>
         </div>
     </div>
+    <br />
 </asp:Content>
 

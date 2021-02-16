@@ -1531,7 +1531,7 @@ namespace WebApp
             TableData.Clear();
             TableData.Columns.Add("Ingredient_Name");
             TableData.Columns.Add("Description");
-            TableData.Columns.Add("StockLevel");
+            TableData.Columns.Add("Quantity");
             sda.Fill(TableData);
 
             foreach (DataRow row in TableData.Rows)

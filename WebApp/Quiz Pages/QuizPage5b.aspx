@@ -21,19 +21,6 @@
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
    
-    <script>
-
-        $(document).ready(function () {
-
-            $(function () {
-                $('button[id="option"]').click(function (e) {
-                    e.preventDefault();
-                    $('#hide_text').show();
-                });
-            });
-        });
-
-    </script>
     <br />
     <br />
     <br />
@@ -56,37 +43,17 @@
         </div>
     </div>
     <br />
-        <div class="container">
-            <div class="row justify-content-center">
-                <button id="option" type="reset" class="btn btn-primary">Others</button>
-            </div>
-            <br />
-            <div class="row justify-content-center">
-                <asp:Label ID="lbl_Load" runat="server" Text="Please click on the 'others' to see your entries" ForeColor="Red" Visible="False"></asp:Label>
-            </div>
-
-            </div>
-            <br />
-            <div class="row justify-content-center">
-                <div id="hide_text" class="auto-style1" style="display: none;">
-                    
-                     <div class="row justify-content-center"><asp:Textbox ID="tb_Others" runat="server" Width="80%"></asp:Textbox></div>
-                    
-                    <br />
-                     <div class="row justify-content-center"><label>Please enter each ingredient and end with a ",". Please do not leave a space after the comma</label></div>
-                    </div>
-                </div>
-            
-            <br />
-            <div class="row justify-content-center">
-                <span id="errorMsg"></span>
-            </div>
-            
-        <br />
-         <br />
         
+    <br />
+    <div class="row justify-content-center">
+        <div class="col">
+        Please select any ingredients that irritates your skin. You may proceed to the next page if none of the ingredient listed irritates you
+        </div>
+    </div>
 
-   <div class="container">
+    <br />
+    
+    <div class="container">
         <div class="row justify-content-center">
             
             <div class="col-6">
