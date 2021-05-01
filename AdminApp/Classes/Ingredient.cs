@@ -1,4 +1,4 @@
-﻿using System;
+﻿ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -6,8 +6,6 @@ using System.Web;
 using System.Data;
 using System.Data.SqlClient;
 using System.Configuration;
-using System.Diagnostics;
-
 namespace AdminApp
 {
     public class Ingredient
@@ -23,15 +21,18 @@ namespace AdminApp
         private decimal _sale_Price = 0;
         private int _level = 0;
         private string _concern_Type = "";
+        private string _skin_Type = "";
+        private string _sensitivity = "";
+        private string _type = "";
 
 
-        // Default constructor
+
         public Ingredient()
         {
         }
         public Ingredient(string ingredient_ID, string ingredient_Name, string suppl_ID, string suppl_Name, string description,
-               int quantity, decimal cost_Price, decimal sale_Price, int level, string concern_Type)
-           
+               int quantity, decimal cost_Price, decimal sale_Price, int level, string concern_Type, string skin_Type,
+               string sensitivity, string type)
         {
             _ingredient_ID = ingredient_ID;
             _ingredient_Name = ingredient_Name;
@@ -43,29 +44,35 @@ namespace AdminApp
             _sale_Price = sale_Price;
             _level = level;
             _concern_Type = concern_Type;
+            _skin_Type = skin_Type;
+            _sensitivity = sensitivity;
+            _type = type;
         }
-        public Ingredient(string ingredient_Name, string suppl_ID, int quantity)
-        {
- 
-            _ingredient_ID = ingredient_Name;
-            _suppl_ID = suppl_ID;
-            _quantity = quantity;
-        }
+
+        //public Ingredient(string ingredient_Name, string suppl_ID, int quantity)
+        //{
+
+        //    _ingredient_Name = ingredient_Name;
+        //    _suppl_ID = suppl_ID;
+        //    _quantity = quantity;
+        //}
 
 
         // Constructor that take in all except Ingredient ID
         public Ingredient(string ingredient_Name, string suppl_ID, string suppl_Name, string description,
-                int quantity, decimal cost_Price, decimal sale_Price, int level, string concern_Type)
-            : this(null,ingredient_Name, suppl_ID, suppl_Name, description, quantity, cost_Price, sale_Price, level, concern_Type)
+                int quantity, decimal cost_Price, decimal sale_Price, int level, string concern_Type,
+                string skin_Type, string sensitivity, string type)
+            : this(null, ingredient_Name, suppl_ID, suppl_Name, description, quantity, cost_Price,
+                  sale_Price, level, concern_Type, skin_Type, sensitivity, type)
         {
         }
 
         // Constructor that take in only Ingredient ID. The other attributes will be set to 0 or empty.
         public Ingredient(string ingredient_ID)
-            : this(ingredient_ID, "", "", "", "", 0, 0, 0, 0, "")
+            : this(ingredient_ID, "", "", "", "", 0, 0, 0, 0, "", "", "", "")
         {
         }
-    
+
         public string ingredient_ID
         {
             get { return _ingredient_ID; }
@@ -122,29 +129,45 @@ namespace AdminApp
             set { _concern_Type = value; }
         }
 
+        public string skin_Type
+        {
+            get { return _skin_Type; }
+            set { _skin_Type = value; }
+        }
 
+        public string sensitivity
+        {
+            get { return _sensitivity; }
+            set { _sensitivity = value; }
+        }
+
+        public string type
+        {
+            get { return _type; }
+            set { _type = value; }
+        }
         // class methods
 
-        public Ingredient getIngredient(string ingredient_Name)
+        public Ingredient getIngredient(string ingredient_ID)
         {
             Ingredient ingredientDetail = null;
 
-            string ingredient_ID, suppl_ID, suppl_Name, description, concern_Type;
+            string ingredient_Name, suppl_ID, suppl_Name, description,
+                concern_Type, skin_Type, sensitivity, type;
             decimal cost_Price, sale_Price;
             int quantity, level;
 
-            string queryStr = "SELECT * FROM Ingredient WHERE ingredient_Name = @IngredientName";
+            string queryStr = "SELECT * FROM Ingredient WHERE Ingredient_ID = @IngredientID";
             SqlConnection conn = new SqlConnection(_connStr);
             SqlCommand cmd = new SqlCommand(queryStr, conn);
-            cmd.Parameters.AddWithValue("@IngredientName", ingredient_Name);
-            Debug.WriteLine("in get ingredient method");
+            cmd.Parameters.AddWithValue("@IngredientID", ingredient_ID);
+
             conn.Open();
             SqlDataReader dr = cmd.ExecuteReader();
 
             if (dr.Read())
             {
-                Debug.WriteLine("Datareader has something");
-                ingredient_ID = dr["ingredient_ID"].ToString();
+                ingredient_Name = dr["ingredient_Name"].ToString();
                 suppl_ID = dr["suppl_ID"].ToString();
                 suppl_Name = dr["suppl_Name"].ToString();
                 description = dr["description"].ToString();
@@ -153,13 +176,15 @@ namespace AdminApp
                 sale_Price = decimal.Parse(dr["sale_Price"].ToString());
                 level = int.Parse(dr["level"].ToString());
                 concern_Type = dr["concern_Type"].ToString();
+                skin_Type = dr["skin_Type"].ToString();
+                sensitivity = dr["sensitivity"].ToString();
+                type = dr["type"].ToString();
 
-                ingredientDetail = new Ingredient(ingredient_Name, ingredient_ID, suppl_ID, suppl_Name, description, quantity, cost_Price,
-                  sale_Price, level, concern_Type);
+                ingredientDetail = new Ingredient(ingredient_ID, ingredient_Name, suppl_ID, suppl_Name, description, quantity, cost_Price,
+                  sale_Price, level, concern_Type, skin_Type, sensitivity, type);
             }
             else
             {
-                Debug.WriteLine("DR has nothing!");
                 ingredientDetail = null;
             }
 
@@ -176,7 +201,7 @@ namespace AdminApp
         {
             List<Ingredient> ingredientList = new List<Ingredient>();
 
-            string ingredient_ID, ingredient_Name, suppl_ID, suppl_Name, description, concern_Type;
+            string ingredient_ID, ingredient_Name, suppl_ID, suppl_Name, description, concern_Type, skin_Type, sensitivity, type;
             decimal cost_Price, sale_Price;
             int quantity, level;
 
@@ -190,7 +215,7 @@ namespace AdminApp
 
             while (dr.Read())
             {
-                ingredient_ID = dr["ingredient_ID"].ToString();         
+                ingredient_ID = dr["ingredient_ID"].ToString();
                 ingredient_Name = dr["ingredient_Name"].ToString();
                 suppl_ID = dr["suppl_ID"].ToString();
                 suppl_Name = dr["suppl_Name"].ToString();
@@ -200,9 +225,12 @@ namespace AdminApp
                 sale_Price = decimal.Parse(dr["sale_Price"].ToString());
                 level = int.Parse(dr["level"].ToString());
                 concern_Type = dr["concern_Type"].ToString();
+                skin_Type = dr["skinType"].ToString();
+                sensitivity = dr["sensitivity"].ToString();
+                type = dr["type"].ToString();
 
                 Ingredient a = new Ingredient(ingredient_ID, ingredient_Name, suppl_ID, suppl_Name, description, quantity, cost_Price,
-                  sale_Price, level, concern_Type);
+                  sale_Price, level, concern_Type, skin_Type, sensitivity, type);
                 ingredientList.Add(a);
             }
 
@@ -214,47 +242,6 @@ namespace AdminApp
         }
 
 
-
-
-        //public List<Ingredient> getIngredientAll()
-        //{
-        //    List<Ingredient> ingredientList = new List<Ingredient>();
-
-        //    string ingredient_ID, suppl_ID;
-
-        //    int quantity;
-
-        //    string queryStr = "SELECT * FROM Ingredient Order By Ingredient_ID";
-
-        //    SqlConnection conn = new SqlConnection(_connStr);
-        //    SqlCommand cmd = new SqlCommand(queryStr, conn);
-
-        //    conn.Open();
-        //    SqlDataReader dr = cmd.ExecuteReader();
-
-        //    while (dr.Read())
-        //    {
-
-        //        ingredient_ID = dr["ingredient_ID"].ToString();
-
-        //        suppl_ID = dr["suppl_ID"].ToString();
-
-        //        quantity = int.Parse(dr["quantity"].ToString());
-
-
-
-        //        Ingredient aIgd = new Ingredient(ingredient_ID, suppl_ID, quantity);
-        //        ingredientList.Add(aIgd);
-        //    }
-
-        //    conn.Close();
-        //    dr.Close();
-        //    dr.Dispose();
-
-        //    return ingredientList;
-        //}
-
-
         // INSERT
         public int IngredientInsert()
         {
@@ -262,8 +249,8 @@ namespace AdminApp
             // string msg = null;
             int result = 0;
 
-            string queryStr = "INSERT INTO Ingredient(ingredient_ID, ingredient_Name, suppl_ID, suppl_Name, description, quantity, cost_Price, sale_Price, level, concern_Type)"
-                + " values (@ingredient_ID, @ingredient_Name, @suppl_ID, @suppl_Name, @description, @quantity, @cost_Price, @sale_Price, @level, @concern_Type)";
+            string queryStr = "INSERT INTO Ingredient(ingredient_ID, ingredient_Name, suppl_ID, suppl_Name, description, quantity, cost_Price, sale_Price, level, concern_Type, skinType, sensitivity, type)"
+                + " values (@ingredient_ID, @ingredient_Name, @suppl_ID, @suppl_Name, @description, @quantity, @cost_Price, @sale_Price, @level, @concern_Type, @skin_Type, @sensitivity, @type)";
             //+ "values (@Product_ID, @Product_Name, @Product_Desc, @Unit_Price, @Product_Image,@Stock_Level)";
 
             SqlConnection conn = new SqlConnection(_connStr);
@@ -275,44 +262,20 @@ namespace AdminApp
             cmd.Parameters.AddWithValue("@description", this._description);
             cmd.Parameters.AddWithValue("@quantity", this._quantity);
             cmd.Parameters.AddWithValue("@cost_Price", this._cost_Price);
-            cmd.Parameters.AddWithValue("@sale_Price", this._sale_Price);            
+            cmd.Parameters.AddWithValue("@sale_Price", this._sale_Price);
             cmd.Parameters.AddWithValue("@level", this._level);
             cmd.Parameters.AddWithValue("@concern_Type", this._concern_Type);
-
+            cmd.Parameters.AddWithValue("@skin_Type", this._skin_Type);
+            cmd.Parameters.AddWithValue("@sensitivity", this.sensitivity);
+            cmd.Parameters.AddWithValue("@type", this.type);
 
             conn.Open();
-                result += cmd.ExecuteNonQuery(); // Returns no. of rows affected. Must be > 0
+            result += cmd.ExecuteNonQuery(); // Returns no. of rows affected. Must be > 0
             conn.Close();
 
             return result;
         }//end Insert
 
-        //public int IngredientInsert()
-        //{
-
-        //    int result = 0;
-        //    string queryStr = "INSERT INTO Ingredient(ingredient_ID, suppl_ID, description, quantity, cost_Price, sale_Price, level, concern_Type)"
-        //           + " values (@ingredient_ID, @suppl_ID, @decription, @quantity, @cost_Price, @sale_Price, @level, @conern_Type, @image)";
-        //    try
-        //    {
-        //        SqlConnection conn = new SqlConnection(_connStr); SqlCommand cmd = new SqlCommand(queryStr, conn);
-        //        cmd.Parameters.AddWithValue("@ingredient_ID", this.Ingredient_ID); cmd.Parameters.AddWithValue("@suppl_ID", this.Supplier_ID);
-        //        cmd.Parameters.AddWithValue("@description", this.Ingredient_Desc); cmd.Parameters.AddWithValue("@quantity", this.Ingredient_Quantity);
-        //        cmd.Parameters.AddWithValue("@cost_Price", this.Cost_Price); cmd.Parameters.AddWithValue("@sale_Price", this.Sale_Price);
-        //        cmd.Parameters.AddWithValue("@level", this.Level); cmd.Parameters.AddWithValue("@concern_Type", this.Concern_Type);
-        //        cmd.Parameters.AddWithValue("@image", this.Image);
-
-        //        conn.Open();
-        //        result += cmd.ExecuteNonQuery(); // Returns no. of rows affected. Must be > 0 conn.Close();
-        //        return result;
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return 0;
-        //    }
-
-        //}
-        ////end Insert
 
         // DELETE
         public int IngredientDelete(string ID)
@@ -330,86 +293,56 @@ namespace AdminApp
 
         }//end Delete
 
-        // UPDATE
-        //public int IngredientUpdate(string iID, int iQuantity, string sID)
-        //{
-        //    string queryStr = "UPDATE Ingredient SET" +
-        //        //" Ingredient_ID = @ingredient_ID, " +
-        //     " Ingredient_Quantity = @quantity, " + " Supplier_ID = @suppl_ID, " +
-        //     " WHERE Ingredient_ID = @ingredient_ID";
-
-        //    SqlConnection conn = new SqlConnection(_connStr);
-        //    SqlCommand cmd = new SqlCommand(queryStr, conn);
-
-        //    cmd.Parameters.AddWithValue("@ingredient_ID", iID);
-        //    cmd.Parameters.AddWithValue("@quantity", iQuantity);
-        //    cmd.Parameters.AddWithValue("@suppl_ID", sID);
-
-        //    conn.Open();
-        //    int nofRow = 0;
-        //    nofRow = cmd.ExecuteNonQuery();
-
-        //    conn.Close();
-
-        //    return nofRow;
-
-            public int IngredientUpdate(string iName, int iQuantity, string sName)
-            {
-                string queryStr = "UPDATE Ingredient SET" +
-                    //" Product_ID = @productID, " +
-                    " quantity = @quantity, " +
-                    " suppl_Name = @suppl_Name " +
-                    " WHERE Ingredient_Name = @ingredient_Name";
-
-                SqlConnection conn = new SqlConnection(_connStr);
-                SqlCommand cmd = new SqlCommand(queryStr, conn);
-                cmd.Parameters.AddWithValue("@ingredient_Name", iName);
-                cmd.Parameters.AddWithValue("@quantity", iQuantity);
-                cmd.Parameters.AddWithValue("@suppl_Name", sName);
-
-                conn.Open();
-                int nofRow = 0;
-                nofRow = cmd.ExecuteNonQuery();
-
-                conn.Close();
-
-                return nofRow;
 
 
-                //    public int IngredientUpdate(string iId, string iName, string sId, string sName, string iDesc, int iQuantity, decimal iCostPrice, decimal iSalePrice, string iLevel, string iConcernType, string iImage)
-                //{
-                //    string queryStr = "UPDATE Ingredient SET" +
-                //        //" Ingredient_ID = @ingredient_ID, " +
-                //        " Ingredient_Name = @ingredient_Name, " + " Supplier_ID = @suppl_ID " + " Supplier_Name = @suppl_Name, " + " Ingredient_Desc = @description, " +
-                //        " Ingredient_Quantity = @quantity, " + " Cost_Price = @cost_Price " + " Sale_Price = @sale_Price, " + " Level = @level, " +
-                //        " Concern_Type = @concern_Type, " + " Image = @image " + 
-                //        " WHERE Ingredient_ID = @ingredient_ID";
+        public int IngredientUpdate(string iID, string iName, string sID, string sName, string idescription, 
+            int iquantity, decimal icost_Price, decimal isale_Price, int ilevel, string iconcern_Type, string iskin_Type, 
+            string isensitivity, string itype)
+        {
+            string queryStr = "UPDATE Ingredient SET" +
+                //" Product_ID = @productID, " +
 
-                //    SqlConnection conn = new SqlConnection(_connStr);
-                //    SqlCommand cmd = new SqlCommand(queryStr, conn);
-                //    cmd.Parameters.AddWithValue("@ingredient_ID", iId);
-                //    cmd.Parameters.AddWithValue("@ingredient_Name", iName);
-                //    cmd.Parameters.AddWithValue("@suppl_ID", sId);
-                //    cmd.Parameters.AddWithValue("@suppl_Name", sName);
-                //    cmd.Parameters.AddWithValue("@description", iDesc);
-                //    cmd.Parameters.AddWithValue("@quantity", iQuantity);
-                //    cmd.Parameters.AddWithValue("@cost_Price", iCostPrice);
-                //    cmd.Parameters.AddWithValue("@sale_Price", iSalePrice);
-                //    cmd.Parameters.AddWithValue("@level", iLevel);
-                //    cmd.Parameters.AddWithValue("@concern_Type", iConcernType);
-                //    cmd.Parameters.AddWithValue("@image", iImage);
+                " ingredient_Name = @ingredient_Name, " +
+                " suppl_ID = @suppl_ID, " +
+                " suppl_Name = @suppl_Name, " +
+                " description = @description, " +
+                " quantity = @quantity, " +
+                " cost_Price = @cost_Price, " +
+                " sale_Price = @sale_Price, " +
+                " level = @level, " +     
+                " concern_Type = @concern_Type, " +
+                " skin_Type = @skin_Type, " +
+                " sensitivity = @sensitivity, " +
+                " type = @type " +
+                " WHERE ingredient_ID = @ingredient_ID";
 
-                //    conn.Open();
-                //    int nofRow = 0;
-                //    nofRow = cmd.ExecuteNonQuery();
-
-                //    conn.Close();
-
-                //    return nofRow;
-            }//end Update
+            SqlConnection conn = new SqlConnection(_connStr);
+            SqlCommand cmd = new SqlCommand(queryStr, conn);
 
 
+            cmd.Parameters.AddWithValue("@ingredient_ID", iID);
+            cmd.Parameters.AddWithValue("@ingredient_Name", iName);
+            cmd.Parameters.AddWithValue("@suppl_ID", sID);
+            cmd.Parameters.AddWithValue("@suppl_Name", sName);
+            cmd.Parameters.AddWithValue("@description", idescription);
+            cmd.Parameters.AddWithValue("@quantity", iquantity);
+            cmd.Parameters.AddWithValue("@cost_Price", icost_Price);
+            cmd.Parameters.AddWithValue("@sale_Price", isale_Price);
+            cmd.Parameters.AddWithValue("@level", ilevel);         
+            cmd.Parameters.AddWithValue("@concern_Type", iconcern_Type);
+            cmd.Parameters.AddWithValue("@skin_Type", iskin_Type);
+            cmd.Parameters.AddWithValue("@sensitivity", isensitivity);
+            cmd.Parameters.AddWithValue("@type", itype);
 
+            conn.Open();
+            int nofRow = 0;
+            nofRow = cmd.ExecuteNonQuery();
+
+            conn.Close();
+
+            return nofRow;
+
+        }//end Update
 
     }
 }

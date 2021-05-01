@@ -19,13 +19,19 @@ namespace WebApp
         private int _cleanserQuantity = 0;
         private int _tonerQuantity = 0;
         private int _moisturiserQuantity = 0;
-        private string _cleanserBase = "" ;
+        private string _cleanserBase = "";
         private string _tonerBase = "";
-        private string _moisturiserBase = ""; 
+        private string _moisturiserBase = "";
         private int _frequency = -1;
         private string _result = "";
+        private string _custID = "";
 
-        
+        public string custID
+        {
+            get { return _custID; }
+            set { _custID = value; }
+        }
+
         public ShoppingCart()
         {
             _cartID = Guid.NewGuid().ToString();
@@ -193,18 +199,18 @@ namespace WebApp
             }
         }
 
-        public bool SignedCartInsert(string custID)
+        public bool SignedCartInsert()
         {
             //check if cart exists
             bool cartExist = false;
-            Debug.WriteLine("Check if cart ID exists from unsignedCart Table");
+            Debug.WriteLine("Check if cart ID exists in Shopping Cart Table");
             try
             {
-                string queryStr = "SELECT cart_ID FROM ShoppingCart WHERE (cust_ID = @cust_ID AND cart_ID = @cart_ID)";
+                string queryStr = "SELECT cart_ID FROM ShoppingCart WHERE (cust_ID = @cust_ID)";
                 SqlConnection conn = new SqlConnection(_connStr);
                 SqlCommand cmd = new SqlCommand(queryStr, conn);
-                cmd.Parameters.AddWithValue("@cust_ID", custID);
-                cmd.Parameters.AddWithValue("@cart_ID", this.cart_ID);
+                cmd.Parameters.AddWithValue("@cust_ID", this.custID);
+
                 conn.Open();
                 SqlDataReader reader = cmd.ExecuteReader();
                 try
@@ -213,6 +219,11 @@ namespace WebApp
                     {
                         Debug.WriteLine("Signed cart Exist!");
                         cartExist = true;
+
+                        while (reader.Read())
+                        {
+                            this.cart_ID = reader.GetValue(0).ToString();
+                        }
 
                     }
                 }
@@ -239,7 +250,7 @@ namespace WebApp
             {
                 Debug.Write("UPDATING existing cart right now!");
                 int rowsAffected = 0;
-                string queryStr = "UPDATE ShoppingCart SET ingredient_1 = @ingredient_1, ingredient_2 = @ingredient_2, ingredient_3 = @ingredient_3, frequency = @frequency  WHERE (cart_ID = @cart_ID AND cust_ID = @cust_ID)";
+                string queryStr = "UPDATE ShoppingCart SET ingredient1 = @ingredient_1, ingredient2 = @ingredient_2, ingredient3 = @ingredient_3, frequency = @frequency  WHERE (cart_ID = @cart_ID AND cust_ID = @cust_ID)";
                 SqlConnection conn = new SqlConnection(_connStr);
                 SqlCommand cmd = new SqlCommand(queryStr, conn);
                 cmd.Parameters.AddWithValue("@cart_ID", this.cart_ID);
@@ -247,7 +258,7 @@ namespace WebApp
                 cmd.Parameters.AddWithValue("@ingredient_2", this.ingredient2.ToString());
                 cmd.Parameters.AddWithValue("@ingredient_3", this.ingredient3.ToString());
                 cmd.Parameters.AddWithValue("@frequency", this.frequency);
-                cmd.Parameters.AddWithValue("@cust_ID", custID);
+                cmd.Parameters.AddWithValue("@cust_ID", this.custID);
                 conn.Open();
                 rowsAffected = cmd.ExecuteNonQuery();
                 conn.Close();
@@ -265,219 +276,212 @@ namespace WebApp
                     deleted = command2.ExecuteNonQuery();
                     con.Close();
 
-                    if (deleted > 0)
+
+                    Debug.WriteLine("SUCCESSFULLY DELETED cart items!");
+                    bool cleanserStatus = false;
+                    bool tonerStatus = false;
+                    bool moisturiserStatus = false;
+                    bool cleanser = false;
+                    bool toner = false;
+                    bool moisturiser = false;
+                    if (this.cleanserQuantity > 0)
                     {
-                        Debug.WriteLine("SUCCESSFULLY DELETED cart items!");
-                        bool cleanserStatus = false;
-                        bool tonerStatus = false;
-                        bool moisturiserStatus = false;
-                        bool cleanser = false;
-                        bool toner = false;
-                        bool moisturiser = false;
-                        if (this.cleanserQuantity > 0)
-                        {
-                            cleanser = true;
-                        }
-                        else
-                        {
-                            cleanserStatus = true;
-                        }
-
-                        if (this.tonerQuantity > 0)
-                        {
-                            toner = true;
-
-                        }
-                        else
-                        {
-                            tonerStatus = true;
-                        }
-
-                        if (this.moisturiserQuantity > 0)
-                        {
-                            moisturiser = true;
-                        }
-                        else
-                        {
-                            moisturiserStatus = true;
-                        }
-
-                        int cleanserPos = 0;
-                        int tonerPos = 0;
-                        int moisturiserPos = 0;
-                        if (cleanser == true && toner != true && moisturiser != true)
-                        {
-                            cleanserPos = 1;
-                        }
-                        else if (cleanser == true && toner == true && moisturiser != true)
-                        {
-                            cleanserPos = 1;
-                            tonerPos = 2;
-                        }
-
-                        else if (cleanser == true && toner != true && moisturiser == true)
-                        {
-                            cleanserPos = 1;
-                            moisturiserPos = 2;
-                        }
-
-                        else if (cleanser == true && toner == true && moisturiser == true)
-                        {
-                            cleanserPos = 1;
-                            tonerPos = 2;
-                            moisturiserPos = 3;
-                        }
-
-                        else if (cleanser != true && toner == true && moisturiser != true)
-                        {
-                            tonerPos = 1;
-                        }
-
-                        else if (cleanser != true && toner == true && moisturiser == true)
-                        {
-                            tonerPos = 1;
-                            moisturiserPos = 2;
-                        }
-
-                        else if (cleanser != true && toner != true && moisturiser == true)
-                        {
-                            moisturiserPos = 1;
-                        }
-                        Debug.WriteLine("Completed assigning of variables");
-                        Debug.Write("Checking if Cleanser was selected");
-
-                        //insert cleanser if have
-                        int cleanserResult = 0;
-                        if (cleanser)
-                        {
-                            Debug.WriteLine("Cleanser exists! writing into db");
-                            string query = "INSERT INTO CartItem(item_ID,cart_ID,baseIngredient,quantity,type,price)"
-                            + " values (@item_ID,@cart_ID,@baseIngredient,@quantity,@type,@price)";
-                            try
-                            {
-                                SqlConnection connStr = new SqlConnection(_connStr);
-                                SqlCommand command = new SqlCommand(query, connStr);
-                                command.Parameters.AddWithValue("@item_ID", cleanserPos);
-                                command.Parameters.AddWithValue("@cart_ID", this.cart_ID);
-                                command.Parameters.AddWithValue("@baseIngredient", this.cleanserBase);
-                                command.Parameters.AddWithValue("@quantity", this.cleanserQuantity);
-                                command.Parameters.AddWithValue("@type", "Cleanser");
-                                command.Parameters.AddWithValue("@price", 19.00);
-                                connStr.Open();
-                                cleanserResult += command.ExecuteNonQuery(); // Returns no. of rows affected. Must be > 0
-                                connStr.Close();
-
-                                if (cleanserResult > 0)
-                                {
-                                    cleanserStatus = true;
-                                    Debug.WriteLine("Added it Succesfully");
-                                }
-                                else
-                                {
-                                    Debug.WriteLine("Unsuccessful adding it ");
-                                }
-                            }
-                            catch (SqlException ex)
-                            {
-                                Debug.WriteLine("Someething went wrong at Cleanser Cart Item");
-                                Debug.WriteLine(ex);
-                            }
-                        }
-
-                        // insert toner if have
-                        int tonerResult = 0;
-                        if (toner)
-                        {
-                            Debug.WriteLine("ADDING Toner into existing cart!");
-                            string query = "INSERT INTO CartItem(item_ID,cart_ID,baseIngredient,quantity,type,price)"
-                            + " values (@item_ID,@cart_ID,@baseIngredient,@quantity,@type,@price)";
-                            try
-                            {
-                                SqlConnection connStr = new SqlConnection(_connStr);
-                                SqlCommand command = new SqlCommand(query, connStr);
-                                command.Parameters.AddWithValue("@item_ID", tonerPos);
-                                command.Parameters.AddWithValue("@cart_ID", this.cart_ID);
-                                command.Parameters.AddWithValue("@baseIngredient", this.tonerBase);
-                                command.Parameters.AddWithValue("@quantity", this.tonerQuantity);
-                                command.Parameters.AddWithValue("@type", "Toner-Serum");
-                                command.Parameters.AddWithValue("@price", 29.00);
-                                connStr.Open();
-                                tonerResult += command.ExecuteNonQuery(); // Returns no. of rows affected. Must be > 0
-                                connStr.Close();
-
-                                if (tonerResult > 0)
-                                {
-                                    Debug.WriteLine("Toner added SUCCESSFULLY!");
-                                    tonerStatus = true;
-                                }
-                                else
-                                {
-                                    Debug.WriteLine("Toner added UNSUCCESSFULLY!");
-                                }
-
-                            }
-                            catch (SqlException ex)
-                            {
-                                Debug.WriteLine("Something went wrong adding Toner to table! Error below");
-                                Debug.WriteLine(ex);
-                            }
-                        }
-
-                        int moisturiserResult = 0;
-                        if (moisturiser)
-                        {
-                            Debug.WriteLine("ADDING Moisturiser to existing cart!");
-                            string query = "INSERT INTO CartItem(item_ID,cart_ID,baseIngredient,quantity,type,price)"
-                            + " values (@item_ID,@cart_ID,@baseIngredient,@quantity,@type,@price)";
-                            try
-                            {
-                                SqlConnection connStr = new SqlConnection(_connStr);
-                                SqlCommand command = new SqlCommand(query, connStr);
-                                command.Parameters.AddWithValue("@item_ID", moisturiserPos);
-                                command.Parameters.AddWithValue("@cart_ID", this.cart_ID);
-                                command.Parameters.AddWithValue("@baseIngredient", this.moisturiserBase);
-                                command.Parameters.AddWithValue("@quantity", this.moisturiserQuantity);
-                                command.Parameters.AddWithValue("@type", "Moisturiser");
-                                command.Parameters.AddWithValue("@price", 29.00);
-                                connStr.Open();
-                                moisturiserResult += command.ExecuteNonQuery(); // Returns no. of rows affected. Must be > 0
-                                connStr.Close();
-
-                                if (moisturiserResult > 0)
-                                {
-                                    Debug.WriteLine("Moisturiser added SUCCESSFULLY!");
-                                    moisturiserStatus = true;
-                                }
-                                else
-                                {
-                                    Debug.WriteLine("Mosituriser added UNSUCCESSFULLY!");
-                                }
-
-                            }
-                            catch (Exception ex)
-                            {
-                                Debug.WriteLine("Something went wrong adding moisturiser to table! Error below");
-                                Debug.WriteLine(ex);
-                            }
-                        }
-
-                        //Check if all inserted correctly!
-
-                        if (cleanserStatus && tonerStatus && moisturiserStatus)
-                        {
-                            bool result = true;
-                            return result;
-                        }
-                        else
-                        {
-                            bool result = false;
-                            return result;
-                        }
+                        cleanser = true;
                     }
                     else
                     {
-                        Debug.WriteLine("ERROR DELETING EXISTING CART ITEMS!");
-                        return false;
+                        cleanserStatus = true;
+                    }
+
+                    if (this.tonerQuantity > 0)
+                    {
+                        toner = true;
+
+                    }
+                    else
+                    {
+                        tonerStatus = true;
+                    }
+
+                    if (this.moisturiserQuantity > 0)
+                    {
+                        moisturiser = true;
+                    }
+                    else
+                    {
+                        moisturiserStatus = true;
+                    }
+
+                    int cleanserPos = 0;
+                    int tonerPos = 0;
+                    int moisturiserPos = 0;
+                    if (cleanser == true && toner != true && moisturiser != true)
+                    {
+                        cleanserPos = 1;
+                    }
+                    else if (cleanser == true && toner == true && moisturiser != true)
+                    {
+                        cleanserPos = 1;
+                        tonerPos = 2;
+                    }
+
+                    else if (cleanser == true && toner != true && moisturiser == true)
+                    {
+                        cleanserPos = 1;
+                        moisturiserPos = 2;
+                    }
+
+                    else if (cleanser == true && toner == true && moisturiser == true)
+                    {
+                        cleanserPos = 1;
+                        tonerPos = 2;
+                        moisturiserPos = 3;
+                    }
+
+                    else if (cleanser != true && toner == true && moisturiser != true)
+                    {
+                        tonerPos = 1;
+                    }
+
+                    else if (cleanser != true && toner == true && moisturiser == true)
+                    {
+                        tonerPos = 1;
+                        moisturiserPos = 2;
+                    }
+
+                    else if (cleanser != true && toner != true && moisturiser == true)
+                    {
+                        moisturiserPos = 1;
+                    }
+                    Debug.WriteLine("Completed assigning of variables");
+                    Debug.Write("Checking if Cleanser was selected");
+
+                    //insert cleanser if have
+                    int cleanserResult = 0;
+                    if (cleanser)
+                    {
+                        Debug.WriteLine("Cleanser exists! writing into db");
+                        string query = "INSERT INTO CartItem(item_ID,cart_ID,baseIngredient,quantity,type,price)"
+                        + " values (@item_ID,@cart_ID,@baseIngredient,@quantity,@type,@price)";
+                        try
+                        {
+                            SqlConnection connStr = new SqlConnection(_connStr);
+                            SqlCommand command = new SqlCommand(query, connStr);
+                            command.Parameters.AddWithValue("@item_ID", cleanserPos);
+                            command.Parameters.AddWithValue("@cart_ID", this.cart_ID);
+                            command.Parameters.AddWithValue("@baseIngredient", this.cleanserBase);
+                            command.Parameters.AddWithValue("@quantity", this.cleanserQuantity);
+                            command.Parameters.AddWithValue("@type", "Cleanser");
+                            command.Parameters.AddWithValue("@price", 19.00);
+                            connStr.Open();
+                            cleanserResult += command.ExecuteNonQuery(); // Returns no. of rows affected. Must be > 0
+                            connStr.Close();
+
+                            if (cleanserResult > 0)
+                            {
+                                cleanserStatus = true;
+                                Debug.WriteLine("Added it Succesfully");
+                            }
+                            else
+                            {
+                                Debug.WriteLine("Unsuccessful adding it ");
+                            }
+                        }
+                        catch (SqlException ex)
+                        {
+                            Debug.WriteLine("Someething went wrong at Cleanser Cart Item");
+                            Debug.WriteLine(ex);
+                        }
+                    }
+
+                    // insert toner if have
+                    int tonerResult = 0;
+                    if (toner)
+                    {
+                        Debug.WriteLine("ADDING Toner into existing cart!");
+                        string query = "INSERT INTO CartItem(item_ID,cart_ID,baseIngredient,quantity,type,price)"
+                        + " values (@item_ID,@cart_ID,@baseIngredient,@quantity,@type,@price)";
+                        try
+                        {
+                            SqlConnection connStr = new SqlConnection(_connStr);
+                            SqlCommand command = new SqlCommand(query, connStr);
+                            command.Parameters.AddWithValue("@item_ID", tonerPos);
+                            command.Parameters.AddWithValue("@cart_ID", this.cart_ID);
+                            command.Parameters.AddWithValue("@baseIngredient", this.tonerBase);
+                            command.Parameters.AddWithValue("@quantity", this.tonerQuantity);
+                            command.Parameters.AddWithValue("@type", "Toner-Serum");
+                            command.Parameters.AddWithValue("@price", 29.00);
+                            connStr.Open();
+                            tonerResult += command.ExecuteNonQuery(); // Returns no. of rows affected. Must be > 0
+                            connStr.Close();
+
+                            if (tonerResult > 0)
+                            {
+                                Debug.WriteLine("Toner added SUCCESSFULLY!");
+                                tonerStatus = true;
+                            }
+                            else
+                            {
+                                Debug.WriteLine("Toner added UNSUCCESSFULLY!");
+                            }
+
+                        }
+                        catch (SqlException ex)
+                        {
+                            Debug.WriteLine("Something went wrong adding Toner to table! Error below");
+                            Debug.WriteLine(ex);
+                        }
+                    }
+
+                    int moisturiserResult = 0;
+                    if (moisturiser)
+                    {
+                        Debug.WriteLine("ADDING Moisturiser to existing cart!");
+                        string query = "INSERT INTO CartItem(item_ID,cart_ID,baseIngredient,quantity,type,price)"
+                        + " values (@item_ID,@cart_ID,@baseIngredient,@quantity,@type,@price)";
+                        try
+                        {
+                            SqlConnection connStr = new SqlConnection(_connStr);
+                            SqlCommand command = new SqlCommand(query, connStr);
+                            command.Parameters.AddWithValue("@item_ID", moisturiserPos);
+                            command.Parameters.AddWithValue("@cart_ID", this.cart_ID);
+                            command.Parameters.AddWithValue("@baseIngredient", this.moisturiserBase);
+                            command.Parameters.AddWithValue("@quantity", this.moisturiserQuantity);
+                            command.Parameters.AddWithValue("@type", "Moisturiser");
+                            command.Parameters.AddWithValue("@price", 29.00);
+                            connStr.Open();
+                            moisturiserResult += command.ExecuteNonQuery(); // Returns no. of rows affected. Must be > 0
+                            connStr.Close();
+
+                            if (moisturiserResult > 0)
+                            {
+                                Debug.WriteLine("Moisturiser added SUCCESSFULLY!");
+                                moisturiserStatus = true;
+                            }
+                            else
+                            {
+                                Debug.WriteLine("Mosituriser added UNSUCCESSFULLY!");
+                            }
+
+                        }
+                        catch (Exception ex)
+                        {
+                            Debug.WriteLine("Something went wrong adding moisturiser to table! Error below");
+                            Debug.WriteLine(ex);
+                        }
+                    }
+
+                    //Check if all inserted correctly!
+
+                    if (cleanserStatus && tonerStatus && moisturiserStatus)
+                    {
+                        bool result = true;
+                        return result;
+                    }
+                    else
+                    {
+                        bool result = false;
+                        return result;
                     }
 
                 }
@@ -496,7 +500,7 @@ namespace WebApp
                 // string msg = null;
                 bool result = false;
 
-                string queryStr = "INSERT INTO ShoppingCart(cart_ID,ingredient_1,ingredient_2,ingredient_3,frequency,cust_ID)"
+                string queryStr = "INSERT INTO ShoppingCart(cart_ID,ingredient1,ingredient2,ingredient3,frequency,cust_ID)"
                     + " values (@cart_ID,@ingredient_1,@ingredient_2,@ingredient_3,@frequency,@cust_ID)";
 
                 try
@@ -510,7 +514,7 @@ namespace WebApp
                     cmd.Parameters.AddWithValue("@ingredient_2", this.ingredient2);
                     cmd.Parameters.AddWithValue("@ingredient_3", this.ingredient3);
                     cmd.Parameters.AddWithValue("@frequency", this.frequency);
-                    cmd.Parameters.AddWithValue("@cust_ID", custID);
+                    cmd.Parameters.AddWithValue("@cust_ID", this.custID);
 
                     conn.Open();
                     firstInsert += cmd.ExecuteNonQuery(); // Returns no. of rows affected. Must be > 0
@@ -753,7 +757,7 @@ namespace WebApp
 
         public bool SignedCartDelete(string type)
         {
-            
+
             int rowsAffected = 0;
 
             string queryStr = "DELETE FROM CartItem WHERE (cart_ID = @cart_ID AND type = @type)";
@@ -828,7 +832,7 @@ namespace WebApp
                     {
                         Debug.WriteLine("cart Exist!");
                         cartExist = true;
-                        
+
                     }
                 }
                 catch (SqlException ex)
@@ -840,7 +844,8 @@ namespace WebApp
                 reader.Close();
                 conn.Close();
 
-            } catch (SqlException ex) 
+            }
+            catch (SqlException ex)
             {
                 Debug.WriteLine("Something went wrong reading UnsignedCart");
                 Debug.WriteLine(ex);
@@ -888,7 +893,7 @@ namespace WebApp
                         bool toner = false;
                         bool moisturiser = false;
 
-                                                
+
                         if (this.cleanserQuantity > 0)
                         {
                             cleanser = true;
@@ -901,7 +906,7 @@ namespace WebApp
                         if (this.tonerQuantity > 0)
                         {
                             toner = true;
-                            
+
                         }
                         else
                         {
@@ -959,7 +964,7 @@ namespace WebApp
                             moisturiserPos = 1;
                         }
 
-                        
+
 
                         Debug.WriteLine("Completed assigning of variables");
                         Debug.Write("Checking if Cleanser was selected");
@@ -1097,7 +1102,7 @@ namespace WebApp
                         Debug.WriteLine("ERROR DELETING EXISTING CART ITEMS!");
                         return false;
                     }
-                    
+
                 }
                 else
                 {
@@ -1107,7 +1112,8 @@ namespace WebApp
             }
 
             //IF CART DONT EXIST THIS PATH
-            else {
+            else
+            {
                 Debug.WriteLine("Cart Does not Exist!");
                 Debug.WriteLine("Prepping for insert");
                 // string msg = null;
@@ -1116,7 +1122,7 @@ namespace WebApp
                 string queryStr = "INSERT INTO UnsignedCart(cart_ID,ingredient_1,ingredient_2,ingredient_3,frequency)"
                     + " values (@cart_ID,@ingredient_1,@ingredient_2,@ingredient_3,@frequency)";
 
-                try 
+                try
                 {
                     Debug.WriteLine("Attempting to add cart");
                     int firstInsert = 0;
@@ -1124,7 +1130,7 @@ namespace WebApp
                     SqlCommand cmd = new SqlCommand(queryStr, conn);
                     cmd.Parameters.AddWithValue("@cart_ID", this.cart_ID);
                     cmd.Parameters.AddWithValue("@ingredient_1", this.ingredient1);
-                    cmd.Parameters.AddWithValue("@ingredient_2", this.ingredient2) ;
+                    cmd.Parameters.AddWithValue("@ingredient_2", this.ingredient2);
                     cmd.Parameters.AddWithValue("@ingredient_3", this.ingredient3);
                     cmd.Parameters.AddWithValue("@frequency", this.frequency);
 
@@ -1229,7 +1235,8 @@ namespace WebApp
                     Debug.WriteLine("Checking if Cleanser exists");
                     //insert cleanser if have
                     int cleanserResult = 0;
-                    if (cleanser) {
+                    if (cleanser)
+                    {
                         Debug.WriteLine("cleanser exists! adding to table");
                         string query = "INSERT INTO UnsignedCartItem(item_ID,cart_ID,baseIngredient,quantity,type,price)"
                         + " values (@item_ID,@cart_ID,@baseIngredient,@quantity,@type,@price)";
@@ -1364,7 +1371,7 @@ namespace WebApp
                     return result;
                 }
             }
-            
+
         }
 
         public bool CartDelete(string type)
@@ -1426,7 +1433,7 @@ namespace WebApp
                         return false;
                     }
                 }
-                                
+
             }
             else
             {
@@ -1497,8 +1504,7 @@ namespace WebApp
             return dt;
         }
 
-
-        public DataTable IngredientListRetrieve(string skinType, string sensitivity ,string concern_Type1, string concern_Type2, int level, string type )
+        public DataTable IngredientListRetrieve(string skinType, string sensitivity, string concern_Type1, string concern_Type2, int level, string type)
         {
             SqlConnection conn = new SqlConnection(_connStr);
 
@@ -1531,7 +1537,7 @@ namespace WebApp
             TableData.Clear();
             TableData.Columns.Add("Ingredient_Name");
             TableData.Columns.Add("Description");
-            TableData.Columns.Add("StockLevel");
+            TableData.Columns.Add("Quantity");
             sda.Fill(TableData);
 
             foreach (DataRow row in TableData.Rows)
@@ -1542,9 +1548,100 @@ namespace WebApp
             return TableData;
         }
 
-        
+        public bool transferUnsignedToSigned()
+        {
+            SqlConnection conn = new SqlConnection(_connStr);
+
+            int rowsAffected = 0;
+            string queryStr = "INSERT INTO ShoppingCart (cart_ID, ingredient1, ingredient2, ingredient3, frequency, cust_ID)" +
+                " SELECT cart_ID, ingredient_1, ingredient_2, ingredient_3, frequency, @custID FROM UnsignedCart WHERE cart_ID = @cartID ";
+            SqlCommand cmd = new SqlCommand(queryStr, conn);
+
+            Debug.WriteLine("BEGIN Transfering ");
+            cmd.Parameters.AddWithValue("@custID", this.custID);
+            cmd.Parameters.AddWithValue("@cartID", this.cart_ID);
+
+            Debug.WriteLine("BEGIN UPDATING!");
+            conn.Open();
+            rowsAffected = cmd.ExecuteNonQuery();
+            conn.Close();
+
+            if (rowsAffected > 0)
+            {
+                Debug.WriteLine("Transfer SUCCESSFUL!");
+
+                int rowsTransferred = 0;
+
+                string query = "INSERT INTO CartItem (item_ID, cart_ID, baseIngredient, quantity, type, price)" +
+                    " SELECT item_ID, cart_ID, baseIngredient, quantity, type, price FROM UnsignedCartItem WHERE cart_ID = @cartID1 ";
+                SqlCommand command = new SqlCommand(query, conn);
+
+                Debug.WriteLine("BEGIN Transfering ");
+                command.Parameters.AddWithValue("@cartID1", this.cart_ID);
+
+                Debug.WriteLine("BEGIN UPDATING!");
+                conn.Open();
+                rowsTransferred = command.ExecuteNonQuery();
+                conn.Close();
+
+                if (rowsTransferred > 0)
+                {
+                    bool cartitem = UnsignedDeleteAllCartItem();
+                    bool cart = UnsignedDeleteCart();
+
+                    if (cartitem && cart)
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+                else
+                {
+                    Debug.WriteLine("Transfer UNSUCCESSFUL! ");
+                    return false;
+                }
+            }
+            else
+            {
+                Debug.WriteLine("Transfer UNSUCCESSFUL! ");
+                return false;
+            }
+        }
+
+        public void SignedRetrieveCartID()
+        {
+            SqlConnection conn = new SqlConnection(_connStr);
+
+            int rowsAffected = 0;
+            string queryStr = "SELECT cart_ID FROM ShoppingCart WHERE cust_ID = @custID";
+            SqlCommand cmd = new SqlCommand(queryStr, conn);
+
+            Debug.WriteLine("BEGIN UPDATING ");
+            cmd.Parameters.AddWithValue("@custID", this.custID);
+            
+
+            Debug.WriteLine("BEGIN UPDATING!");
+            conn.Open();
+            
+            SqlDataReader reader = cmd.ExecuteReader();
+            string cID = "";
+            if (reader.HasRows)
+            {
+                while (reader.Read())
+                {
+                    cID = reader.GetValue(0).ToString();
+                }
+            }
+
+            conn.Close();
+            this.cart_ID = cID;
+
+            
+        }
     }
 
-} 
+}
 
-    

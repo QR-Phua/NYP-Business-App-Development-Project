@@ -72,11 +72,11 @@
 		</ol>
 		<div class="carousel-inner">
 			<div class="carousel-item active">
-				<img alt="First slide" class="d-block w-100 slideImg" src="Images/Hero Img 1.jpg"">
+				<img alt="First slide" class="d-block w-100 slideImg" src="Images/Hero Img 1.jpg">
 				<div class="carousel-caption d-none d-md-block">
 					<h5 class="animated slideInDown" style="animation-delay: 1s">Discover our different skincare products</h5>
-					<p class="animated fadeInUp" style="animation-delay: 2s">Create your personalised skincare products today</p>
-					<p class="animated zoomIn" style="animation-delay: 3s"><a href="#">Learn More</a></p>
+					<p class="animated fadeInUp" style="animation-delay: 2s">Find out what makes it different from other companies </p>
+					<p class="animated zoomIn" style="animation-delay: 3s"><a href="<%= ResolveUrl("~/StaticPages/Products.aspx")%>">Learn More</a></p>
 				</div>
 			</div>
 			<div class="carousel-item">
@@ -90,9 +90,9 @@
 			<div class="carousel-item">
 				<img alt="Third slide" class="d-block w-100 slideImg" src="Images/Hero Pic 3.jpg">
 				<div class="carousel-caption d-none d-md-block">
-					<h5 class="animated zoomIn" style="animation-delay: 1s">Only clean ingredients used</h5>
-					<p class="animated fadeInRight" style="animation-delay: 2s">Find out how we source for our ingredients</p>
-					<p class="animated zoomIn" style="animation-delay: 3s"><a href="#">Learn More</a></p>
+					<h5 class="animated zoomIn" style="animation-delay: 1s">Only 100% clean ingredients used</h5>
+					<p class="animated fadeInRight" style="animation-delay: 2s">Rest assured that only the best is given to your skin</p>
+					<p class="animated zoomIn" style="animation-delay: 3s; visibility:hidden;" ><a href="#">Learn More</a></p>
 				</div>
 			</div>
 		</div><a class="carousel-control-prev" data-slide="prev" href="#carouselExampleIndicators" role="button"><span aria-hidden="true" class="carousel-control-prev-icon"></span> <span class="sr-only">Previous</span></a> <a class="carousel-control-next" data-slide="next" href="#carouselExampleIndicators" role="button"><span aria-hidden="true" class="carousel-control-next-icon"></span> <span class="sr-only">Next</span></a>

@@ -24,6 +24,15 @@ namespace AdminApp
         protected global::System.Web.UI.WebControls.TextBox tb_ingredient_ID;
 
         /// <summary>
+        /// rfv_ingredient_ID control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfv_ingredient_ID;
+
+        /// <summary>
         /// tb_ingredient_Name control.
         /// </summary>
         /// <remarks>
@@ -31,6 +40,15 @@ namespace AdminApp
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox tb_ingredient_Name;
+
+        /// <summary>
+        /// rfv_ingredient_Name control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfv_ingredient_Name;
 
         /// <summary>
         /// tb_suppl_ID control.
@@ -42,6 +60,15 @@ namespace AdminApp
         protected global::System.Web.UI.WebControls.TextBox tb_suppl_ID;
 
         /// <summary>
+        /// rfv_suppl_ID control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfv_suppl_ID;
+
+        /// <summary>
         /// tb_suppl_Name control.
         /// </summary>
         /// <remarks>
@@ -49,6 +76,15 @@ namespace AdminApp
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox tb_suppl_Name;
+
+        /// <summary>
+        /// rfv_suppl_Name control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfv_suppl_Name;
 
         /// <summary>
         /// tb_description control.
@@ -60,6 +96,15 @@ namespace AdminApp
         protected global::System.Web.UI.WebControls.TextBox tb_description;
 
         /// <summary>
+        /// rfv_description control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfv_description;
+
+        /// <summary>
         /// tb_quantity control.
         /// </summary>
         /// <remarks>
@@ -67,6 +112,24 @@ namespace AdminApp
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox tb_quantity;
+
+        /// <summary>
+        /// rfv_quantity control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfv_quantity;
+
+        /// <summary>
+        /// cv_quantity control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CompareValidator cv_quantity;
 
         /// <summary>
         /// tb_cost_Price control.
@@ -78,6 +141,24 @@ namespace AdminApp
         protected global::System.Web.UI.WebControls.TextBox tb_cost_Price;
 
         /// <summary>
+        /// rfv_cost_Price control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfv_cost_Price;
+
+        /// <summary>
+        /// cv_cost_Price control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CompareValidator cv_cost_Price;
+
+        /// <summary>
         /// tb_sale_Price control.
         /// </summary>
         /// <remarks>
@@ -85,6 +166,24 @@ namespace AdminApp
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox tb_sale_Price;
+
+        /// <summary>
+        /// rfv_sale_Price control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfv_sale_Price;
+
+        /// <summary>
+        /// cv_sale_Price control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CompareValidator cv_sale_Price;
 
         /// <summary>
         /// tb_level control.
@@ -96,6 +195,24 @@ namespace AdminApp
         protected global::System.Web.UI.WebControls.TextBox tb_level;
 
         /// <summary>
+        /// rfv_level control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfv_level;
+
+        /// <summary>
+        /// cv_level control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CompareValidator cv_level;
+
+        /// <summary>
         /// tb_concern_Type control.
         /// </summary>
         /// <remarks>
@@ -105,13 +222,85 @@ namespace AdminApp
         protected global::System.Web.UI.WebControls.TextBox tb_concern_Type;
 
         /// <summary>
-        /// lbl_Result control.
+        /// rfv_concern_Type control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lbl_Result;
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfv_concern_Type;
+
+        /// <summary>
+        /// tb_skin_Type control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox tb_skin_Type;
+
+        /// <summary>
+        /// rfv_skin_Type control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfv_skin_Type;
+
+        /// <summary>
+        /// tb_sensitivity control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox tb_sensitivity;
+
+        /// <summary>
+        /// rfv_sensitivity control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfv_sensitivity;
+
+        /// <summary>
+        /// tb_type control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox tb_type;
+
+        /// <summary>
+        /// rfv_type control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfv_type;
+
+        /// <summary>
+        /// Result control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Result;
+
+        /// <summary>
+        /// ValidationSummary1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ValidationSummary ValidationSummary1;
 
         /// <summary>
         /// btn_Insert control.

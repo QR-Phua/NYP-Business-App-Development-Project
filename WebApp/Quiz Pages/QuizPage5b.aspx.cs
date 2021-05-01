@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -54,35 +55,23 @@ namespace WebApp.Quiz_Pages
             if (Session["allerIngredients"].ToString() != "Yes")
             {
 
-                string[] ingredientsMem = Session["allerIngredients"].ToString().Split(',');
+                List<string> list = (List<string>)Session["allerIngredients"];
 
-                tb_Others.Text = "";
+                
                 
                 foreach (ListItem li in cb_AllerIngredients.Items)
                 {
-                    for (int i = 0; i < ingredientsMem.Length; i++)
+                    for (int i = 0; i < list.Count; i++)
                     {
-                        if (ingredientsMem[i] == li.Value)
+                        if (list[i] == li.Value)
                         {
                             li.Selected = true;
-                            ingredientsMem[i] = "";
+                            list[i] = "";
                         }
                         
                     }
                 }
-
-                for (int i = 0; i < ingredientsMem.Length; i++)
-                {
-                    if (ingredientsMem[i] != "")
-                    {
-                        tb_Others.Text = tb_Others.Text + ingredientsMem[i] + ",";
-                    }                    
-                }
-
-                if (tb_Others.Text != "")
-                {
-                    lbl_Load.Visible = true;
-                }
+                             
 
                 Session["allerIngredients"] = "Yes";
             }
@@ -97,29 +86,34 @@ namespace WebApp.Quiz_Pages
         protected void btn_Submit_Click(object sender, EventArgs e)
         {
             
-            string allerIngredients = null;
-
             var items = from ListItem li in cb_AllerIngredients.Items
                         where li.Selected == true
                         select li;
 
+            List<String> list = new List<string>();
 
             foreach (ListItem li in items)
             {
-                allerIngredients = allerIngredients + li.Value + ",";
+                list.Add(li.ToString());
             }
 
-            if (tb_Others != null)
+            if (list.Count > 0)
             {
-                allerIngredients = allerIngredients + tb_Others.Text + ",";
-                allerIngredients = allerIngredients.Trim();
+                Session["allerIngredients"] = list;
+            }
+            else
+            {
+                Session["allerIngredients"] = "No";
             }
 
-            Session["allerIngredients"] = allerIngredients;
+            Debug.WriteLine("List Items below!");
 
-            HttpCookie cookie = Request.Cookies["QuizResult"];
-            cookie["allerIngredients"] = allerIngredients;
-            Response.Cookies.Add(cookie);
+            list.ForEach(delegate (String name)
+            {
+                Debug.WriteLine(name);
+            });
+
+            
 
             Response.Redirect("IngredientSelection.aspx");
             

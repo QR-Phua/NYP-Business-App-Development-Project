@@ -29,6 +29,13 @@
 			<a class="navbar-brand" href="<%= ResolveUrl("~/Home.aspx") %>">Chadior Beauty</a> <button aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler" data-target="#navbarSupportedContent" data-toggle="collapse" type="button"><span class="navbar-toggler-icon"></span></button>
 			<div class="collapse navbar-collapse" id="navbarSupportedContent">
 				<ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+						<a class="nav-link" href="<%= ResolveUrl("~/Test.aspx") %>">Login</a>
+					</li>
+                    <li class="nav-item">
+						<a class="nav-link" href="<%= ResolveUrl("~/Test.aspx") %>">Logout</a>
+					</li>
+
 					<li class="nav-item active">
 						<a class="nav-link" href="<%= ResolveUrl("~/Home.aspx") %>">Home</a>
 					</li>
@@ -38,25 +45,24 @@
 					<li class="nav-item">
 						<a class="nav-link" href="<%= ResolveUrl("~/Quiz Pages/QuizPage1.aspx") %>">Skin Quiz</a>
 					</li>
-					<li class="nav-item">
-						<a class="nav-link" href="#">Ingredients</a>
-					</li>
 					
-					<li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Our Products
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="#">Cleanser</a>
-                        <a class="dropdown-item" href="#">Toner-Serum</a>
-                        <a class="dropdown-item" href="#">Moisturiser</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">Set of 3</a>
-                    </div>
-                    </li>
+					
+					<li class="nav-item">
+						<a class="nav-link" href="<%= ResolveUrl("~/StaticPages/Products.aspx")%>">Our Products</a>
+					</li>
 
                     <li class="nav-item">
 						<a class="nav-link" href="<%= ResolveUrl("~/Shopping Cart/ShoppingCart.aspx")%>">Cart</a>
 					</li>
+
+                    <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">FAQ</a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="<%= ResolveUrl("~/FAQ Pages/FAQView.aspx")%>">Frequently Asked Questions</a>
+                        <a class="dropdown-item" href="<%= ResolveUrl("~/FAQ Pages/ContactUsView.aspx")%>">Contact Us</a>
+                    </div>
+                    </li>
+
 				</ul>
 			</div>
 		</div>

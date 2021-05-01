@@ -93,6 +93,9 @@
                         
                         <div class="row justify-content-center"><h5>Cleanser</h5></div>
                         <div class="row justify-content-center"><h5>$19</h5></div>
+                        <br />
+                        <div class="row justify-content-center"><asp:Label ID="lbl_CleanserBase" runat="server" Text=""></asp:Label></div>
+                        <br />
                         <div class="row justify-content-center">
                             <h6>Select your quantity</h6>
                         </div>
@@ -135,6 +138,9 @@
                         
                         <div class="row justify-content-center"><h5>Toner-Serum</h5></div>
                         <div class="row justify-content-center"><h5>$29</h5></div>
+                        <br />
+                        <div class="row justify-content-center"><asp:Label ID="lbl_TonerBase" runat="server" Text=""></asp:Label></div>
+                        <br />
                         <div class="row justify-content-center">
                                 <h6>Select your quantity</h6>
                         </div>
@@ -179,6 +185,9 @@
                         
                         <div class="row justify-content-center"><h5>Moisturiser</h5></div>
                         <div class="row justify-content-center"><h5>$29</h5></div>
+                        <br />
+                        <div class="row justify-content-center"><asp:Label ID="lbl_MoisturiserBase" runat="server" Text=""></asp:Label></div>
+                        <br />
                             <div class="row justify-content-center">
                                 <h6>Select your quantity</h6>
                             </div>

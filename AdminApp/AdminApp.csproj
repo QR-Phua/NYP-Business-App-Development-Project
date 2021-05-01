@@ -67,14 +67,16 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="FAQ\ContactUsView.aspx" />
     <Content Include="FAQ\FAQInsert.aspx" />
     <Content Include="FAQ\FAQView.aspx" />
-    <Content Include="Ingredient\IngredientDetails.aspx" />
     <Content Include="Ingredient\IngredientInsert.aspx" />
     <Content Include="Ingredient\IngredientView.aspx" />
     <Content Include="StaffRegistration\staffLogin.aspx" />
     <Content Include="StaffRegistration\staffManagement.aspx" />
     <Content Include="StaffRegistration\staffRegistration.aspx" />
+    <Content Include="Supplier\SupplierInsert.aspx" />
+    <Content Include="Supplier\SupplierView.aspx" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -85,8 +87,16 @@
     <Compile Include="AdminSite.Master.designer.cs">
       <DependentUpon>AdminSite.Master</DependentUpon>
     </Compile>
-	<Compile Include="Classes\FAQ.cs"/>
+    <Compile Include="Classes\FAQ.cs" />
     <Compile Include="Classes\Ingredient.cs" />
+    <Compile Include="Classes\Supplier.cs" />
+    <Compile Include="FAQ\ContactUsView.aspx.cs">
+      <DependentUpon>ContactUsView.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="FAQ\ContactUsView.aspx.designer.cs">
+      <DependentUpon>ContactUsView.aspx</DependentUpon>
+    </Compile>
     <Compile Include="FAQ\FAQInsert.aspx.cs">
       <DependentUpon>FAQInsert.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -100,13 +110,6 @@
     </Compile>
     <Compile Include="FAQ\FAQView.aspx.designer.cs">
       <DependentUpon>FAQView.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Ingredient\IngredientDetails.aspx.cs">
-      <DependentUpon>IngredientDetails.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Ingredient\IngredientDetails.aspx.designer.cs">
-      <DependentUpon>IngredientDetails.aspx</DependentUpon>
     </Compile>
     <Compile Include="Ingredient\IngredientInsert.aspx.cs">
       <DependentUpon>IngredientInsert.aspx</DependentUpon>
@@ -144,6 +147,20 @@
     <Compile Include="StaffRegistration\staffRegistration.aspx.designer.cs">
       <DependentUpon>staffRegistration.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Supplier\SupplierInsert.aspx.cs">
+      <DependentUpon>SupplierInsert.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Supplier\SupplierInsert.aspx.designer.cs">
+      <DependentUpon>SupplierInsert.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Supplier\SupplierView.aspx.cs">
+      <DependentUpon>SupplierView.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Supplier\SupplierView.aspx.designer.cs">
+      <DependentUpon>SupplierView.aspx</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="AdminSite.Master" />
@@ -155,6 +172,7 @@
       <DependentUpon>Web.config</DependentUpon>
     </None>
   </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

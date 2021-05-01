@@ -75,6 +75,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="About Us Page\AboutUs.aspx" />
     <Content Include="App_Data\WebAppDB.mdf" />
     <Content Include="App_Data\WebAppDB_log.ldf">
       <DependentUpon>WebAppDB.mdf</DependentUpon>
@@ -83,11 +84,20 @@
     <Content Include="CustomerRegistration\CustomerLogin.aspx" />
     <Content Include="CustomerRegistration\CustomerRegistration.aspx" />
     <Content Include="CustomErrors\GenericError.html" />
+    <Content Include="FAQ Pages\ContactUs.aspx" />
+    <Content Include="FAQ Pages\FAQView.aspx" />
     <Content Include="Home.aspx" />
     <Content Include="CustomErrors\HTTP404.html" />
     <Content Include="CustomErrors\HTTP500.html" />
     <Content Include="Images\Hero Pic 2.jpg" />
     <Content Include="Images\Hero Pic 3.jpg" />
+    <Content Include="About Us Page\logo_transparent.png" />
+    <Content Include="About Us Page\Screenshot 2021-02-17 005450.jpg" />
+    <Content Include="About Us Page\Screenshot 2021-02-17 010801.jpg" />
+    <Content Include="About Us Page\Screenshot 2021-02-17 012207.jpg" />
+    <Content Include="About Us Page\Screenshot 2021-02-17 012259.jpg" />
+    <Content Include="About Us Page\Screenshot 2021-02-17 012334.jpg" />
+    <Content Include="StaticPages\Products.aspx" />
     <Content Include="StyleSheets\Home.css" />
     <Content Include="Images\Cleanser.jpg" />
     <Content Include="Images\Hero Img 1.jpg" />
@@ -105,6 +115,7 @@
     <Content Include="Review Form\ReviewForm.aspx" />
     <Content Include="Shopping Cart\ProductFormulation.aspx" />
     <Content Include="Shopping Cart\ShoppingCart.aspx" />
+    <Content Include="Test.aspx" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -140,6 +151,20 @@
       <DependentUpon>CustomerSite.Master</DependentUpon>
     </Compile>
     <Compile Include="Classes\Formulation.cs" />
+    <Compile Include="FAQ Pages\ContactUs.aspx.cs">
+      <DependentUpon>ContactUs.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="FAQ Pages\ContactUs.aspx.designer.cs">
+      <DependentUpon>ContactUs.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="FAQ Pages\FAQView.aspx.cs">
+      <DependentUpon>FAQView.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="FAQ Pages\FAQView.aspx.designer.cs">
+      <DependentUpon>FAQView.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Home.aspx.cs">
       <DependentUpon>Home.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -221,6 +246,20 @@
     </Compile>
     <Compile Include="Classes\ShoppingCart.cs" />
     <Compile Include="Classes\TempIngredients.cs" />
+    <Compile Include="StaticPages\Products.aspx.cs">
+      <DependentUpon>Products.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="StaticPages\Products.aspx.designer.cs">
+      <DependentUpon>Products.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Test.aspx.cs">
+      <DependentUpon>Test.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Test.aspx.designer.cs">
+      <DependentUpon>Test.aspx</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

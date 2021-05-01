@@ -16,7 +16,7 @@ namespace WebApp
     public partial class IngredientSelection : System.Web.UI.Page
     {
         public DataTable TableData = new DataTable();
-        
+
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -54,31 +54,32 @@ namespace WebApp
             if (Request.Cookies["QuizResult"] == null)
             {
                 Response.Redirect("QuizPage1.aspx");
-            
+
             }
-            else {
-                
+            else
+            {
+
                 HttpCookie cookie = Request.Cookies["QuizResult"];
                 if (cookie["result"] == null || cookie["result"] == "")
                 {
                     Response.Redirect("QuizPage1.aspx");
                 }
             }
-            
+
 
             if (Session["CartObject"] == null)
             {
                 ShoppingCart cart = new ShoppingCart();
                 Session["CartObject"] = cart;
             }
-            
+
 
             if (!IsPostBack)
             {
                 GetAllData();
             }
 
-            
+
 
         }
 
@@ -87,12 +88,6 @@ namespace WebApp
 
             HttpCookie cookie = Request.Cookies["QuizResult"];
             string result = cookie["result"];
-
-            string allerIngredients = "";
-            if (cookie["allerIngredients"] != null || cookie["allerIngredients"] != "")
-            {
-                allerIngredients = cookie["allerIngredients"];
-            }
 
             string skinType, sensitivity, concern_Type1, concern_Type2, makeup, waterCon, type;
             int level = 1;
@@ -107,7 +102,8 @@ namespace WebApp
             {
                 skinType = "Balanced";
             }
-            else if (result[0] == char.Parse("O")) {
+            else if (result[0] == char.Parse("O"))
+            {
                 skinType = "Oily";
             }
             else
@@ -180,9 +176,9 @@ namespace WebApp
             {
                 makeup = "Yes";
             }
-            else 
-            { 
-                makeup = "No"; 
+            else
+            {
+                makeup = "No";
             }
             //determine waterCon
             if (result[5] == char.Parse("S") || result[5] == char.Parse("M"))
@@ -205,16 +201,43 @@ namespace WebApp
             {
                 cart = new ShoppingCart();
             }
-            
 
-            TableData = cart.IngredientListRetrieve(skinType,sensitivity,concern_Type1,concern_Type2,level,type);
+
+            TableData = cart.IngredientListRetrieve(skinType, sensitivity, concern_Type1, concern_Type2, level, type);
+
+            bool allerIngredients = false;
+            if (Session["allerIngredients"].ToString() != "No")
+            {
+                allerIngredients = true;
+            }
+
+            if (allerIngredients)
+            {
+                List<string> list = (List<string>)Session["allerIngredients"];
+
+                TableData.AcceptChanges();
+                foreach (DataRow row in TableData.Rows)
+                {
+                    foreach (string item in list)
+                    {
+                        if (row["Ingredient_Name"].ToString() == item)
+                        {
+                            row.Delete();
+                        }
+
+                    }
+
+                }
+                TableData.AcceptChanges();
+            }
+
 
         }
 
         [WebMethod(EnableSession = true)]
         public static void getData(string[] ingredients)
         {
-            
+
             if (ingredients != null)
             {
                 Debug.WriteLine(ingredients);
@@ -233,9 +256,9 @@ namespace WebApp
             {
                 Debug.WriteLine("FAILED!!!");
             }
-            
+
         }
-        
+
         protected void btn_Back_Click(object sender, EventArgs e)
         {
             Response.Redirect("QuizPage5a.aspx");
@@ -243,7 +266,7 @@ namespace WebApp
 
         protected void btn_Submit_Click(object sender, EventArgs e)
         {
-            
+
         }
     }
 }

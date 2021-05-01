@@ -7,101 +7,83 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace AdminApp
+namespace WebApp
 {
 
 
-    public partial class IngredientDetails
+    public partial class ContactUs
     {
 
         /// <summary>
-        /// lbl_ingredient_ID control.
+        /// Tb_FirstName control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lbl_ingredient_ID;
+        protected global::System.Web.UI.WebControls.TextBox Tb_FirstName;
 
         /// <summary>
-        /// lbl_ingredient_Name control.
+        /// Tb_LastName control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lbl_ingredient_Name;
+        protected global::System.Web.UI.WebControls.TextBox Tb_LastName;
 
         /// <summary>
-        /// lbl_suppl_Name control.
+        /// Tb_Email control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lbl_suppl_Name;
+        protected global::System.Web.UI.WebControls.TextBox Tb_Email;
 
         /// <summary>
-        /// lbl_description control.
+        /// Tb_Mobile control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lbl_description;
+        protected global::System.Web.UI.WebControls.TextBox Tb_Mobile;
 
         /// <summary>
-        /// lbl_quantity control.
+        /// Tb_Message control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lbl_quantity;
+        protected global::System.Web.UI.WebControls.TextBox Tb_Message;
 
         /// <summary>
-        /// lbl_cost_Price control.
+        /// Tb_ProductName control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lbl_cost_Price;
+        protected global::System.Web.UI.WebControls.TextBox Tb_ProductName;
 
         /// <summary>
-        /// lbl_sale_Price control.
+        /// Tb_Feedback control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lbl_sale_Price;
+        protected global::System.Web.UI.WebControls.TextBox Tb_Feedback;
 
         /// <summary>
-        /// lbl_level control.
+        /// Btn_Submit control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lbl_level;
-
-        /// <summary>
-        /// lbl_concern_Type control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lbl_concern_Type;
-
-        /// <summary>
-        /// btn_IngredientView control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btn_IngredientView;
+        protected global::System.Web.UI.WebControls.Button Btn_Submit;
     }
 }

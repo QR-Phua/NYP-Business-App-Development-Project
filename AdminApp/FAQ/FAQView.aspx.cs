@@ -9,7 +9,7 @@ namespace AdminApp
 {
     public partial class FAQView : System.Web.UI.Page
     {
-        FAQ aFaq = new FAQ();
+        //FAQ aFaq = new FAQ();
         protected void Page_Load(object sender, EventArgs e)
         {
 
@@ -22,7 +22,7 @@ namespace AdminApp
         protected void bind()
         {
             List<FAQ> faqList = new List<FAQ>();
-            faqList = aFaq.getfaqall();
+            //faqList = aFaq.getfaqall();
             gvFAQ.DataSource = faqList;
             gvFAQ.DataBind();
         }
@@ -49,9 +49,9 @@ namespace AdminApp
         protected void gvFAQ_RowDeleting(object sender, GridViewDeleteEventArgs e)
         {
             int result = 0;
-            FAQ Faq = new FAQ();
+            //FAQ Faq = new FAQ();
             string categoryID = gvFAQ.DataKeys[e.RowIndex].Value.ToString();
-            result = Faq.FAQDelete(categoryID);
+            //result = Faq.FAQDelete(categoryID);
 
             if (result > 0)
             {
@@ -80,7 +80,7 @@ namespace AdminApp
         protected void gvFAQ_RowUpdating(object sender, GridViewUpdateEventArgs e)
         {
             int result = 0;
-            FAQ Faq = new FAQ();
+            //FAQ Faq = new FAQ();
             GridViewRow row = (GridViewRow)gvFAQ.Rows[e.RowIndex];
             string id = gvFAQ.DataKeys[e.RowIndex].Value.ToString();
             string tID = ((TextBox)row.Cells[0].Controls[0]).Text;     
@@ -89,7 +89,7 @@ namespace AdminApp
             string tAnswer = ((TextBox)row.Cells[3].Controls[0]).Text;
 
 
-            result = Faq.FAQUpdate(tID, tTitle, tQuestion, tAnswer);
+            //result = Faq.FAQUpdate(tID, tTitle, tQuestion, tAnswer);
             if (result > 0)
             {
                 Response.Write("<script>alert('FAQ updated successfully');</script>");

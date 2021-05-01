@@ -63,14 +63,38 @@ namespace WebApp.Shopping_Cart
                     }
                 }
             }
-            
+
+            HttpCookie quizResult = Request.Cookies["QuizResult"];
+            string waterCon = quizResult["waterCon"];
+            string makeup = quizResult["makeup"];
+
+            if (waterCon == "Bad")
+            {
+                lbl_TonerBase.Text = "Moisture Base";
+                lbl_MoisturiserBase.Text = "Cream Base";
+            }
+            else
+            {
+                lbl_TonerBase.Text = "Hydro Base";
+                lbl_MoisturiserBase.Text = "Gel Base";
+            }
+
+            if (makeup == "Yes")
+            {
+                lbl_CleanserBase.Text = "Makeup Base";
+            }
+            else
+            {
+                lbl_CleanserBase.Text = "Gentle Base";
+            }
+
             HttpCookie cookie = Request.Cookies["cartInfo"];
             if (cookie == null)
             {
                 cookie = new HttpCookie("cartInfo");
             }
             Response.Cookies.Add(cookie);
-            
+
             HttpCookie quizCookie = Request.Cookies["QuizResult"];
             lbl_Concern1.Text = quizCookie["concernType1"];
             lbl_Concern2.Text = quizCookie["concernType2"];
@@ -91,7 +115,7 @@ namespace WebApp.Shopping_Cart
 
             // check if ingredients selected alr exists as a formulation and storing the formulation ID
             string formulationExistResult = formulation.retrieveFormulationID();
-            
+
             // if retrieved id has nothing then it does not exist
             bool formulationSelectedExist = false;
             if (formulationExistResult != "")
@@ -110,7 +134,7 @@ namespace WebApp.Shopping_Cart
             {
                 Debug.WriteLine("ranking datatable exists and has rows");
                 int selectedPerc = 0; // set selected formulation percent to 0 first 
-                
+
 
                 if (formulationSelectedExist)
                 {
@@ -209,13 +233,13 @@ namespace WebApp.Shopping_Cart
             {
                 Debug.WriteLine("ranking datatable DOES NOT HAVE ROWS");
                 lbl_Recommended.Text = String.Format("We can't give much recommendation at this point in time. This can be due to many factors " +
-                        "such as a lack of reviews on the ingredient combinations for this particular Skin Quiz Result. We recommend choosing " +
-                        "the combination of ingredients that you like in the prvious step and proceed to try it out!");
+                        "such as a lack of reviews on the ingredient combinations bought for this particular Skin Quiz Result and etc. We recommend choosing " +
+                        "the combination of ingredients that you like in the previous step and proceed to try it out!");
 
                 //hides button since no recommendation
                 btn_TakeRecommended.Visible = false;
             }
-        
+
 
         }
 
@@ -240,7 +264,7 @@ namespace WebApp.Shopping_Cart
                 Response.Redirect("~/Shopping Cart/ProductFormulation.aspx");
             }
 
-            
+
         }
 
         protected void btn_Reselect_Click(object sender, EventArgs e)
@@ -251,12 +275,12 @@ namespace WebApp.Shopping_Cart
         protected void btn_AddCleanser_Click(object sender, EventArgs e)
         {
             if (ddl_Cleanser.SelectedIndex > 0)
-            {   
+            {
                 if (Session["CleanserQuantity"] != null)
                 {
                     Session.Remove("CleanserQuantity");
                 }
-                
+
                 Session["CleanserQuantity"] = ddl_Cleanser.SelectedValue;
                 lbl_Cleanser.Text = "Quantity Selected: " + Session["CleanserQuantity"].ToString();
                 lbl_Cleanser.Attributes.CssStyle.Add("color", "black");
@@ -297,7 +321,7 @@ namespace WebApp.Shopping_Cart
                 {
                     Session.Remove("MoisturiserQuantity");
                 }
-                
+
                 Session["MoisturiserQuantity"] = ddl_Moisturiser.SelectedValue;
                 lbl_Moisturiser.Text = "Quantity Selected: " + Session["MoisturiserQuantity"].ToString();
                 lbl_Moisturiser.Attributes.CssStyle.Add("color", "black");
@@ -350,7 +374,7 @@ namespace WebApp.Shopping_Cart
         {
             bool redirect = false;
             string error = "";
-            
+
             if (Session["OrderSubscription"] == null)
             {
                 error = error + "Please select whether you would like to have a subscription!";
@@ -453,19 +477,17 @@ namespace WebApp.Shopping_Cart
                     Response.Cookies.Add(cookie);
                     Session["CartObject"] = cart;
 
-                    if (Session["Customer"] != null)
+                    if (Session["CustomerID"] != null)
                     {
-                        /*
-                        string custID = Session["Customer"]
-
-                        some method of retrieval 
-
-                        bool result = cart.SignedCartInsert(custID);
+                        string custID = Session["Customerid"].ToString();
+                        cart.custID = custID;
+                        bool result = cart.SignedCartInsert();
                         if (result)
                         {
+                            Session["CartObject"] = cart;
                             Response.Redirect("ShoppingCart.aspx");
                         }
-                        */
+
                     }
                     else
                     {
@@ -479,7 +501,7 @@ namespace WebApp.Shopping_Cart
 
                 }
             }
-            
+
         }
 
         protected void btn_Retake_Click(object sender, EventArgs e)
@@ -548,6 +570,6 @@ namespace WebApp.Shopping_Cart
             }
         }
 
-        
+
     }
 }

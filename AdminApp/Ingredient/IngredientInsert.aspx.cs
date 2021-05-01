@@ -18,11 +18,11 @@ namespace AdminApp
         {
             int result = 0;
 
-            Ingredient Igd = new Ingredient(tb_ingredient_ID.Text,tb_ingredient_Name.Text, tb_suppl_ID.Text, tb_suppl_Name.Text, tb_description.Text, int.Parse(tb_quantity.Text),
-                 decimal.Parse(tb_cost_Price.Text), decimal.Parse(tb_sale_Price.Text), int.Parse(tb_level.Text), tb_concern_Type.Text);
+            Ingredient Igd = new Ingredient(tb_ingredient_ID.Text, tb_ingredient_Name.Text, tb_suppl_ID.Text, tb_suppl_Name.Text, tb_description.Text, int.Parse(tb_quantity.Text),
+                 decimal.Parse(tb_cost_Price.Text), decimal.Parse(tb_sale_Price.Text), int.Parse(tb_level.Text), tb_concern_Type.Text, tb_skin_Type.Text, tb_sensitivity.Text, tb_type.Text);
 
 
-             result = Igd.IngredientInsert();
+            result = Igd.IngredientInsert();
 
             if (result > 0)
             {
@@ -30,7 +30,6 @@ namespace AdminApp
                 Response.Write("<script>alert('Insert successful');</script>");
             }
             else { Response.Write("<script>alert('Insert NOT successful');</script>"); }
-
         }
 
         protected void btn_IngredientView_Click(object sender, EventArgs e)

@@ -12,10 +12,7 @@ namespace WebApp.Review_Form
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            //Retrieve Order details
-
-
-            // Add in Problem areas from Order details
+            
 
             string concern_Type1 = "R";
             string concern_Type2 = "Y";
@@ -99,7 +96,7 @@ namespace WebApp.Review_Form
         protected void btn_Submit_Click(object sender, EventArgs e)
         {
             //CHange this to derive from session
-            int orderID = 5;
+            int orderID = 6;
             int rating;
 
             //Change this to derive from Session
