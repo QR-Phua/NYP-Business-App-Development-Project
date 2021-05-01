@@ -232,7 +232,7 @@ namespace WebApp
             }
 
 
-            bool allerIngredients = false;
+            
             if (Session["allerIngredients"].ToString() != "No")
             {
                 allerIngredients = true;
