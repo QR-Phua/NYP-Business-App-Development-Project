@@ -232,6 +232,33 @@ namespace WebApp
             }
 
 
+            bool allerIngredients = false;
+            if (Session["allerIngredients"].ToString() != "No")
+            {
+                allerIngredients = true;
+            }
+            
+            if (allerIngredients)
+            {
+                List<string> list = (List<string>)Session["allerIngredients"];
+
+                TableData.AcceptChanges();
+                foreach (DataRow row in TableData.Rows)
+                {
+                    foreach (string item in list)
+                    {
+                        if (row["Ingredient_Name"].ToString() == item)
+                        {
+                            row.Delete();
+                        }
+
+                    }
+                    
+                }
+                TableData.AcceptChanges();
+            }
+            
+
         }
 
         [WebMethod(EnableSession = true)]
